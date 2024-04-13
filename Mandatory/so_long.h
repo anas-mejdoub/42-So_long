@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/12 16:48:48 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/13 14:37:20 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 # define SO_LONG_H
 
 #include "../Libft/libft.h"
-int map_parsing();
+char **map_parsing();
 #endif

@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:41:41 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/12 16:55:15 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/13 14:39:17 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,34 +26,41 @@ void free2d(char **str)
     free(str);
     str = NULL;
 }
-
-char **add_str(char **vector, char *str)
+int remove_nl(char **map)
 {
     int i = 0;
-    char **new_vector;
-    new_vector = NULL;
-    while (vector && vector[i])
+    while (map[i + 1])
+    {
+        map[i] = ft_substr2(map[i], 0, ft_strlen(map[i]) - 1, 'f');
+        i++;
+    }
+    return 1;
+}
+char **add_str(char **map, char *str)
+{
+    int i = 0;
+    char **new_map;
+    new_map = NULL;
+    while (map && map[i])
     {
         i++;
     }
-    new_vector = malloc(sizeof(char *) * (i + 2));
-    if (!new_vector)
+    new_map = malloc(sizeof(char *) * (i + 2));
+    if (!new_map)
         return (NULL);
     i = 0;
-    while (vector && vector[i])
+    while (map && map[i])
     {
-        ft_printf("%d\n", ft_strlen(vector[i]) -1);
-        int len = ft_strlen(vector[i]);
-        new_vector[i] =  ft_substr( vector[i], 0, len - 1);
+        new_map[i] =  map[i];
         i++;
     }
-    new_vector[i] = ft_substr( str, 0, ft_strlen(str));
-    new_vector[i + 1] = NULL;
-    // free2d(vector);
-    return new_vector;
+    new_map[i] = str;
+    new_map[i + 1] = NULL;
+    free(map);
+    return new_map;
 }
 
-int map_parsing()
+char **map_parsing()
 {
     char **map;
     char *str;
@@ -71,11 +78,6 @@ int map_parsing()
         map = add_str(map, str);
         str = get_next_line(fd);
     }
-    i = 0;
-    while (map[i])
-    {
-        ft_printf("hh %s\n", map[i]);
-        i++;
-    }
-    return 0;
+    remove_nl(map);
+    return map;
 }
