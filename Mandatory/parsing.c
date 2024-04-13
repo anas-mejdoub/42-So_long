@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:41:41 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/13 15:50:06 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/13 16:07:57 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ int check_walls(char **map)
         i++;
     }
     last = get_map_height(map) - 1;
-    j = 0;
-    while (map[last][i])
+    i = 0;
+    while (map[last] && map[last][i])
     {
         if (map[last][i] != '1')
             return 0;
