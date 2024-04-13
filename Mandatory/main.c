@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/13 15:38:46 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/13 21:20:05 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ int main()
         ft_printf("%s\n", map[i]);
         i++;
     }
+    free2d(map);
+    // int i = 0;
+    // while (map[i])
+    // {
+    //     ft_printf("%s\n", map[i]);
+    //     i++;
+    // }
     
-    // system("leaks a.out");
+    // system("leaks so_long");
 }

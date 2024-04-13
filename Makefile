@@ -1,4 +1,4 @@
-SRCS = ./Mandatory/main.c ./Mandatory/parsing.c
+SRCS = ./Mandatory/main.c ./Mandatory/parsing.c ./Mandatory/flood_fill.c
 # SRCS_BONUS = ./Bonus/main_bonus.c ./Bonus/parsing_bonus.c ./Bonus/rules_bonus.c ./Bonus/rules2_bonus.c
 OBJBS = $(SRCS:.c=.o)
 # OBJBS_BONUS = $(SRCS_BONUS:.c=.o)
