@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/13 21:27:00 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/13 21:50:00 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "../Libft/libft.h"
 #include <mlx.h>
-char **map_parsing();
+char **map_parsing(char *file_name);
 void	free2d(char **str);
 int get_map_height(char **map);
 int get_map_width(char **map);

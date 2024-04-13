@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:41:41 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/13 21:17:48 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/13 21:49:16 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,13 +236,13 @@ int	check_map_error(char **map)
 		return (1);
 	return (0);
 }
-char	**map_parsing(void)
+char	**map_parsing(char *file_name)
 {
 	char	**map;
 	char	*str;
 	int		fd;
 
-	fd = open("./maps/map1.ber", O_RDONLY);
+	fd = open(file_name, O_RDONLY);
 	map = NULL;
 	if (fd == -1)
 	{
