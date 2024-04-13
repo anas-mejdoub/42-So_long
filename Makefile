@@ -5,13 +5,13 @@ OBJBS = $(SRCS:.c=.o)
 NAME = so_long
 # NAME_BONUS = checker
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -Imlx 
 
 all : $(NAME)
 
 $(NAME) : $(OBJBS) ./Mandatory/so_long.h 
 	make -C ./libft
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJBS) ./libft/libft.a
+	$(CC) $(CFLAGS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJBS) ./libft/libft.a
 
 # bonus : $(OBJBS_BONUS) ./bonus/push_swap_bonus.h
 # 	make -C ./libft

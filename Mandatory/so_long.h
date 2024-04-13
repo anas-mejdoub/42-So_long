@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/13 21:18:44 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/13 21:27:00 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SO_LONG_H
 
 #include "../Libft/libft.h"
+#include <mlx.h>
 char **map_parsing();
 void	free2d(char **str);
 int get_map_height(char **map);
