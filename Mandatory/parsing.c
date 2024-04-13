@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:41:41 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/13 16:07:57 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/13 16:41:20 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,8 @@ char **map_parsing()
     }
     remove_nl(map);
     if (!check_map_error(map))
-        return (NULL);
+        return (close(fd), NULL);
+    close (fd);
     return map;
 }
 
