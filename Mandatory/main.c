@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/13 14:39:27 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:38:46 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,12 @@
 int main()
 {
     char **map = map_parsing();
-    map_parsing();
+    // free(map);
+    if (!map)
+    {
+        write (2, "Error map !", 12);
+        exit (0);
+    }
     int i = 0;
     while (map[i])
     {
