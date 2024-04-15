@@ -6,72 +6,65 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/15 21:12:24 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/15 22:18:36 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include <mlx.h>
 #include "so_long.h"
-// #include "../Libft/libft.h"
 
-int main(void)
+int main(int argc, char *argv[])
 {
-    // if (argc == 1)
-    //     return 0;
-    // char **map = map_parsing(argv[1]);
-    // // free(map);
-    // if (!map)
-    // {
-    //     write (2, "Error map !", 12);
-    //     exit (0);
-    // }
-    // int i = 0;
-    // // while (map[i])
-    // // {
-    // //     ft_printf("%s\n", map[i]);
-    // //     i++;
-    // // }
-    // void *mlx;
-    // mlx = mlx_init();
-    // void *img = mlx_new_image(mlx, 1920, 1080);
-    // // mlx_new_image(mlx1, 100, 100);
-    // // mlx
-    // img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-	// 							&img.endian);
-    // free2d(map);
-    // free2d(img);
-    // int i = 0;
-    // while (map[i])
-    // {
-    //     ft_printf("%s\n", map[i]);
-    //     i++;
-    // }
-    
-    // system("leaks so_long");
-
+    if (argc == 1)
+        return 0;
+    char **map = map_parsing(argv[1]);
+    if (!map)
+    {
+        write (2, "Error map !", 12);
+        exit (0);
+    }
+    ft_printf("%d\n", get_map_height(map));
     void	*mlx;
 	void	*img;
-	char	*relative_path = "assetes/Terrain-_32x32__1_.xpm";
+	char	*relative_path = "assetes/floor33.xpm";
 	int		img_width;
 	int		img_height;
-
+	int		img_width2;
+	int		img_height2;
+	int		img_width3;
+	int		img_height3;
 	mlx = mlx_init();
-    void *window = mlx_new_window(mlx, 1000, 1000, "test");
+    void *window = mlx_new_window(mlx, get_map_width(map) * 32, get_map_height(map) * 32, "test");
 	img = mlx_xpm_file_to_image(mlx, relative_path, &img_width, &img_height);
-    // mlx_put_image_to_window(mlx, window, img, 500, 500);
+	void *img_wall = mlx_xpm_file_to_image(mlx, "assetes/wall_volc.xpm", &img_width2, &img_height2);
+	void *img_door = mlx_xpm_file_to_image(mlx, "assetes/idle.xpm", &img_width3, &img_height3);
     int i = 0;
     int y = 0;
     int z = 0;
-    while (z < 4)
+    int h = 0;
+    while (map[i])
     {
-        i = 0;
-        while (i < 200)
+        y = 0;
+        z = 0;
+        while (map[i][y])
         {
-            mlx_put_image_to_window(mlx, window, img, i, y);
-            i += 32;
+            if (map[i][y] == '1')
+            {
+                mlx_put_image_to_window(mlx, window, img_wall, z, h);
+            }
+            else if (map[i][y] == '0')
+            {
+                mlx_put_image_to_window(mlx, window, img, z, h);
+            }
+            else if (map[i][y] == 'E')
+            {
+                mlx_put_image_to_window(mlx, window, img_door, z, h);
+            }
+            z += 32;
+            y++;
         }
-        y+= 31;
-        z++;
+        h += 32;
+        i++;
     }
     mlx_loop(mlx);
 }
