@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/15 22:52:29 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:25:24 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void set_up_map(char **map)
     void	*mlx;
 	void	*img;
     int i = 0;
-    
     mlx = mlx_init();
     void *window = mlx_new_window(mlx, get_map_width(map) * 32, get_map_height(map) * 32, "so_long");
     int y = 0;
@@ -33,15 +32,18 @@ void set_up_map(char **map)
         {
             if (map[i][y] == '1')
             {
-                void *img = mlx_xpm_file_to_image(mlx, "assetes/wall_v.xpm", &width, &height);
+                if (i == 0 || y == 0 || y == get_map_width(map) - 1 || i == get_map_height(map) - 1)
+                    img = mlx_xpm_file_to_image(mlx, "assetes/floor33.xpm", &width, &height);
+                else
+                    img = mlx_xpm_file_to_image(mlx, "assetes/wall_volc.xpm", &width, &height);
                 mlx_put_image_to_window(mlx, window, img, z, h);
             }
-            else if (map[i][y] == '0' || map[i][y] == 'P' || map[i][y] == 'C')
+            else if (map[i][y] == '0' || map[i][y] == 'P' || map[i][y] == 'C' || map[i][y] == 'E')
             {
-                void *img = mlx_xpm_file_to_image(mlx, "assetes/floor33.xpm", &width, &height);
+                img = mlx_xpm_file_to_image(mlx, "assetes/floorT.xpm", &width, &height);
                 mlx_put_image_to_window(mlx, window, img, z, h);
             }
-            else if (map[i][y] == 'E')
+            if (map[i][y] == 'E')
             {
                 img = mlx_xpm_file_to_image(mlx, "assetes/idle.xpm", &width, &height);
                 mlx_put_image_to_window(mlx, window, img, z, h);
@@ -53,7 +55,7 @@ void set_up_map(char **map)
             }
             if (map[i][y] == 'P')
             {
-                img = mlx_xpm_file_to_image(mlx, "assetes/player.xpm", &width, &height);
+                img = mlx_xpm_file_to_image(mlx, "assetes/right0.xpm", &width, &height);
                 mlx_put_image_to_window(mlx, window, img, z, h);
             }
             z += 32;
