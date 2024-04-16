@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/16 19:49:49 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/16 22:36:14 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_img
 	void *inner_wall;
 	void *floor;
 	void *door;
+	void *opened_door;
 	void *coin;
 }	t_img;
 

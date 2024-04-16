@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/16 22:26:45 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/16 22:43:14 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	check_winner(char **map)
 	if (pos_exit.y == -1 && pos_exit.x == -1 && pos_coins.y == -1
 		&& pos_coins.x == -1)
 		return (1);
+	else if (pos_coins.y == -1 && pos_coins.x == -1)
+        return (2);
 	return (0);
 }
 
@@ -105,12 +107,14 @@ int	render_map(char **map, t_env *env, void *player_dir)
 	int	y;
 	int	z;
 	int	h;
+    // void *img_ptr;
 
 	i = 0;
 	y = 0;
 	z = 0;
 	h = 0;
-	if (check_winner(map))
+    
+	if (check_winner(map) == 1)
 	{
 		ft_printf("congrats You win !\ngame closing\n");
 		exit(0);
@@ -137,8 +141,12 @@ int	render_map(char **map, t_env *env, void *player_dir)
 				mlx_put_image_to_window(env->mlx, env->win, env->img.floor, z,
 					h);
 			if (map[i][y] == 'E')
-				mlx_put_image_to_window(env->mlx, env->win, env->img.door, z,
+                {
+                    if (check_winner(map) == 2)
+                        env->img.door = env->img.opened_door;
+				    mlx_put_image_to_window(env->mlx, env->win, env->img.door, z,
 					h);
+                }
 			if (map[i][y] == 'C')
 				mlx_put_image_to_window(env->mlx, env->win, env->img.coin, z,
 					h);
@@ -167,6 +175,8 @@ void	set_up_map(char **map)
 	var.env = &env;
 	env.img.outer_wall = mlx_xpm_file_to_image(env.mlx, "assetes/floor33.xpm",
 			&width, &height);
+	env.img.opened_door = mlx_xpm_file_to_image(env.mlx,
+			"assetes/opened_door.xpm", &width, &height);
 	env.img.inner_wall = mlx_xpm_file_to_image(env.mlx, "assetes/wall_gb.xpm",
 			&width, &height);
 	env.img.floor = mlx_xpm_file_to_image(env.mlx, "assetes/floorT.xpm", &width,
