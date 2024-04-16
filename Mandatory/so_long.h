@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/16 16:54:53 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:29:22 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,22 @@ typedef struct	s_point
 	int			x;
 }		t_point;
 
+typedef struct s_img
+{
+	void *player_r;
+	void *player_u;
+	void *player_B;
+	void *player_f;
+	void *outer_wall;
+	void *inner_wall;
+	void *floor;
+	void *door;
+	void *coin;
+}	t_img;
+
 typedef struct s_env
 {
-	void *img;
+	t_img img;
 	void *win;
 	void *mlx;
 } t_env;
@@ -42,5 +55,5 @@ typedef struct s_var
 	t_env *env;
 } t_var;
 
-void render_map(char **map, t_env *env);
+int render_map(char **map, t_env *env);
 #endif
