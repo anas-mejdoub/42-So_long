@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/16 18:29:22 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:49:49 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ typedef struct s_img
 {
 	void *player_r;
 	void *player_u;
-	void *player_B;
+	void *player_d;
 	void *player_f;
+	void *player_l;
 	void *outer_wall;
 	void *inner_wall;
 	void *floor;
@@ -54,6 +55,6 @@ typedef struct s_var
 	char **map;
 	t_env *env;
 } t_var;
-
-int render_map(char **map, t_env *env);
+int	check_collect(char **map);
+int render_map(char **map, t_env *env, void *player_dir);
 #endif
