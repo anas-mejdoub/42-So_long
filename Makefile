@@ -5,7 +5,7 @@ OBJBS = $(SRCS:.c=.o)
 NAME = so_long
 # NAME_BONUS = checker
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Imlx 
+CFLAGS = -Wall -Wextra -Werror -Imlx
 
 all : $(NAME)
 

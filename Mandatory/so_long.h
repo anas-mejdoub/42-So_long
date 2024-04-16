@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/15 21:19:00 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:54:53 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,20 @@ typedef struct	s_point
 {
 	int			y;
 	int			x;
-}				t_point;
+}		t_point;
 
+typedef struct s_env
+{
+	void *img;
+	void *win;
+	void *mlx;
+} t_env;
+
+typedef struct s_var
+{
+	char **map;
+	t_env *env;
+} t_var;
+
+void render_map(char **map, t_env *env);
 #endif
