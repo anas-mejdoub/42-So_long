@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/17 18:23:22 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/17 22:53:22 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,58 +55,79 @@ int	movment_handler(int keycode, t_var *var)
 {
 	t_point	pos;
 
-	pos = item_postion(var->map, 'P');
+	pos = *var->p_pos;
 	if (keycode == 1)
 	{
 		if (var->map[pos.y + 1][pos.x] == 'E' && check_collect(var->map))
 		{
-			
+			var->p_pos->y = pos.y + 1;
+			var->p_pos->x = pos.x;
 		}
+		// 	return (render_map(var->map, var->env, var->env->img.player_d, var->p_pos));
 		else if (var->map[pos.y + 1][pos.x] != '1')
 		{
+			var->p_pos->y = pos.y + 1;
+			var->p_pos->x = pos.x;
 			var->map[pos.y][pos.x] = '0';
-			var->map[pos.y + 1][pos.x] = 'P';
+			// var->map[pos.y + 1][pos.x] = 'P';
 		}
-		render_map(var->map, var->env, var->env->img.player_d);
+		render_map(var->map, var->env, var->env->img.player_d, var->p_pos);
 	}
 	if (keycode == 2)
 	{
 		if (var->map[pos.y][pos.x + 1] == 'E' && check_collect(var->map))
-			;
+		{
+			var->p_pos->y = pos.y;
+			var->p_pos->x = pos.x + 1;
+		}
+		
+		// 	return (render_map(var->map, var->env, var->env->img.player_r, var->p_pos));
 		else if (var->map[pos.y][pos.x + 1] != '1' || (var->map[pos.y][pos.x
 				+ 1] == 'E' && !check_collect(var->map)))
 		{
+			var->p_pos->y = pos.y;
+			var->p_pos->x = pos.x + 1;
 			var->map[pos.y][pos.x] = '0';
-			var->map[pos.y][pos.x + 1] = 'P';
+			// var->map[pos.y][pos.x + 1] = 'P';
 		}
-		render_map(var->map, var->env, var->env->img.player_r);
+		render_map(var->map, var->env, var->env->img.player_r, var->p_pos);
 	}
 	if (keycode == 13)
 	{
 		if (var->map[pos.y - 1][pos.x] == 'E' && check_collect(var->map))
-			;
+		{
+			var->p_pos->y = pos.y - 1;
+			var->p_pos->x = pos.x;
+			}// 	return (render_map(var->map, var->env, var->env->img.player_u, var->p_pos));
 		else if (var->map[pos.y - 1][pos.x] != '1')
 		{
 			var->map[pos.y][pos.x] = '0';
-			var->map[pos.y - 1][pos.x] = 'P';
+			// var->map[pos.y - 1][pos.x] = 'P';
+			var->p_pos->y = pos.y - 1;
+			var->p_pos->x = pos.x;
 		}
-		render_map(var->map, var->env, var->env->img.player_u);
+		render_map(var->map, var->env, var->env->img.player_u, var->p_pos);
 	}
 	if (keycode == 0)
 	{
 		if (var->map[pos.y][pos.x - 1] == 'E' && check_collect(var->map))
-			;
+		{
+			var->p_pos->y = pos.y;
+			var->p_pos->x = pos.x - 1;
+		} // 	return (render_map(var->map, var->env, var->env->img.player_l, var->p_pos));
 		else if (var->map[pos.y][pos.x - 1] != '1')
 		{
 			var->map[pos.y][pos.x] = '0';
-			var->map[pos.y][pos.x - 1] = 'P';
+			// var->map[pos.y][pos.x - 1] = 'P';
+			var->p_pos->y = pos.y;
+			var->p_pos->x = pos.x - 1;
 		}
-		render_map(var->map, var->env, var->env->img.player_l);
+		render_map(var->map, var->env, var->env->img.player_l, var->p_pos);
 	}
 	return (1);
 }
 
-int	render_map(char **map, t_env *env, void *player_dir)
+int	render_map(char **map, t_env *env, void *player_dir, t_point *p_pos)
 {
 	int	i;
 	int	y;
@@ -128,6 +149,7 @@ int	render_map(char **map, t_env *env, void *player_dir)
 	{
 		y = 0;
 		z = 0;
+		mlx_put_image_to_window(env->mlx, env->win, player_dir, p_pos->x * 32, p_pos->y *32);
 		while (map[i][y])
 		{
 			if (map[i][y] == '1')
@@ -154,8 +176,8 @@ int	render_map(char **map, t_env *env, void *player_dir)
 			if (map[i][y] == 'C')
 				mlx_put_image_to_window(env->mlx, env->win, env->img.coin, z,
 					h);
-			if (map[i][y] == 'P')
-				mlx_put_image_to_window(env->mlx, env->win, player_dir, z, h);
+			// if (map[i][y] == 'P')
+			// 	mlx_put_image_to_window(env->mlx, env->win, player_dir, z, h);
 			z += 32;
 			y++;
 		}
@@ -171,8 +193,11 @@ void	set_up_map(char **map)
 	t_var	var;
 	int		width;
 	int		height;
+	t_point p_pos;
 
 	var.map = map;
+	p_pos = item_postion(map, 'P');
+	var.p_pos = &p_pos;
 	env.mlx = mlx_init();
 	env.win = mlx_new_window(env.mlx, get_map_width(map) * 32,
 			get_map_height(map) * 32, "so_long");
@@ -189,15 +214,15 @@ void	set_up_map(char **map)
 			&height);
 	env.img.coin = mlx_xpm_file_to_image(env.mlx, "assetes/coin.xpm", &width,
 			&height);
-	env.img.player_r = mlx_xpm_file_to_image(env.mlx, "assetes/right0.xpm",
+	env.img.player_r = mlx_xpm_file_to_image(env.mlx, "assetes/player/right032.xpm",
 			&width, &height);
 	env.img.player_d = mlx_xpm_file_to_image(env.mlx,
-			"assetes/player/down1.xpm", &width, &height);
-	env.img.player_u = mlx_xpm_file_to_image(env.mlx, "assetes/player/up1.xpm",
+			"assetes/player/down1_32.xpm", &width, &height);
+	env.img.player_u = mlx_xpm_file_to_image(env.mlx, "assetes/player/up1_32.xpm",
 			&width, &height);
 	env.img.player_l = mlx_xpm_file_to_image(env.mlx,
-			"assetes/player/left0.xpm", &width, &height);
-	if (!render_map(map, &env, env.img.player_r))
+			"assetes/player/left032.xpm", &width, &height);
+	if (!render_map(map, &env, env.img.player_r, &p_pos))
 	{
 		mlx_destroy_image(env.mlx, env.img.outer_wall);
 		mlx_destroy_image(env.mlx, env.img.inner_wall);
