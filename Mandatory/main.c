@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/16 22:43:14 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:23:22 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ int	check_winner(char **map)
         return (2);
 	return (0);
 }
+// void handle_px(char **map)
+// {
 
+// }
 int	movment_handler(int keycode, t_var *var)
 {
 	t_point	pos;
@@ -56,7 +59,9 @@ int	movment_handler(int keycode, t_var *var)
 	if (keycode == 1)
 	{
 		if (var->map[pos.y + 1][pos.x] == 'E' && check_collect(var->map))
-			;
+		{
+			
+		}
 		else if (var->map[pos.y + 1][pos.x] != '1')
 		{
 			var->map[pos.y][pos.x] = '0';
@@ -107,7 +112,6 @@ int	render_map(char **map, t_env *env, void *player_dir)
 	int	y;
 	int	z;
 	int	h;
-    // void *img_ptr;
 
 	i = 0;
 	y = 0;
@@ -144,7 +148,7 @@ int	render_map(char **map, t_env *env, void *player_dir)
                 {
                     if (check_winner(map) == 2)
                         env->img.door = env->img.opened_door;
-				    mlx_put_image_to_window(env->mlx, env->win, env->img.door, z,
+					mlx_put_image_to_window(env->mlx, env->win, env->img.door, z,
 					h);
                 }
 			if (map[i][y] == 'C')
