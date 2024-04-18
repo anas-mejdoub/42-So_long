@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/18 19:29:07 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/18 19:56:11 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	destroy_images(t_env *env)
 	mlx_destroy_window(env->mlx, env->win);
 }
 
-void	open_images(t_env *env, int *width, int *height, char **map)
+int	open_images(t_env *env, int *width, int *height, char **map)
 {
 	env->win = mlx_new_window(env->mlx, get_map_width(map) * 32,
 			get_map_height(map) * 32, "so_long");
@@ -51,12 +51,15 @@ void	open_images(t_env *env, int *width, int *height, char **map)
 			"assetes/player/up1_32.xpm", width, height);
 	env->img.player_l = mlx_xpm_file_to_image(env->mlx,
 			"assetes/player/left032.xpm", width, height);
+	if (!check_assets(env))
+		return (0);
+	return (1);
 }
 
-int closing_game(t_var *var)
+int	closing_game(t_var *var)
 {
 	destroy_images(var->env);
-	ft_printf("You lost hehe\n");
+	ft_printf("You lost ! hehe\n");
 	free2d(var->map);
 	exit(0);
 }
@@ -73,7 +76,12 @@ void	set_up_map(char **map)
 	p_pos = item_postion(map, 'P');
 	var.p_pos = &p_pos;
 	env.mlx = mlx_init();
-	open_images(&env, &width, &height, map);
+	if (!open_images(&env, &width, &height, map))
+	{
+		free2d(map);
+		ft_putstr_fd("problem with the assetes !\n", 2);
+		exit(1);
+	}
 	var.env = &env;
 	if (!render_map(map, &env, env.img.player_r, &p_pos))
 	{
@@ -104,5 +112,6 @@ int	main(int argc, char *argv[])
 		exit(0);
 	}
 	set_up_map(map);
+	free2d(map);
 	return (0);
 }

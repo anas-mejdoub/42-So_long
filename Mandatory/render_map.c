@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:37:53 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/18 18:51:47 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/18 19:56:02 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,14 @@ void	build_outer_wall(char **map, t_point p, t_point p2, t_env *env)
 	else
 		mlx_put_image_to_window(env->mlx, env->win, env->img.inner_wall, p2.x,
 			p2.y);
+}
+
+int	check_assets(t_env *env)
+{
+	if (!env->img.outer_wall || !env->img.opened_door || !env->img.inner_wall
+		|| !env->img.floor || !env->img.door || !env->img.coin
+		|| !env->img.player_r || !env->img.player_d || !env->img.player_u
+		|| !env->img.player_l)
+		return (0);
+	return (1);
 }
