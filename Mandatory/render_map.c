@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:37:53 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/18 19:56:02 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/18 22:42:41 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	render_helper(t_var var, int i, int y, t_point point)
 		y = 0;
 		while (var.map[i][y])
 		{
+			if (check_winner(var.map) == 2)
+				var.env->img.door = var.env->img.opened_door;
 			if (var.map[i][y] == '1')
 				build_outer_wall(var.map, (t_point){i, y}, (t_point){point.y,
 					point.x}, var.env);
@@ -59,7 +61,9 @@ void	render_helper(t_var var, int i, int y, t_point point)
 void	render_exit(t_var *var, t_point *point)
 {
 	if (check_winner(var->map) == 2)
+	{
 		var->env->img.door = var->env->img.opened_door;
+	}
 	mlx_put_image_to_window(var->env->mlx, var->env->win, var->env->img.door,
 		point->x, point->y);
 }
