@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/18 12:12:28 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/18 12:43:35 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	movment_handler(int keycode, t_var *var)
 	static int move;
 	if (keycode == 1)
 	{
-		if ((var->map[var->p_pos->y + 1][var->p_pos->x] != '1' && var->map[var->p_pos->y + 1][var->p_pos->x] == 'E' && check_collect(var->map)) || var->map[var->p_pos->y][var->p_pos->x] == 'E')
+		if (var->map[var->p_pos->y + 1][var->p_pos->x] != '1' && ((var->map[var->p_pos->y + 1][var->p_pos->x] == 'E' && check_collect(var->map)) || (var->map[var->p_pos->y][var->p_pos->x] == 'E')))
 		{
 			
 			var->p_pos->y = var->p_pos->y + 1;
@@ -92,7 +92,7 @@ int	movment_handler(int keycode, t_var *var)
 	}
 	if (keycode == 13)
 	{
-		if ((var->map[var->p_pos->y - 1][var->p_pos->x] != '1' && var->map[var->p_pos->y - 1][var->p_pos->x] == 'E' && check_collect(var->map)) || var->map[var->p_pos->y][var->p_pos->x] == 'E')
+		if (var->map[var->p_pos->y - 1][var->p_pos->x] != '1' && ((var->map[var->p_pos->y - 1][var->p_pos->x] == 'E' && check_collect(var->map)) || var->map[var->p_pos->y][var->p_pos->x] == 'E'))
 		{
 			
 			var->p_pos->y = var->p_pos->y - 1;
@@ -112,7 +112,7 @@ int	movment_handler(int keycode, t_var *var)
 	}
 	if (keycode == 0)
 	{
-		if ((var->map[var->p_pos->y][var->p_pos->x - 1] != '1' && var->map[var->p_pos->y][var->p_pos->x - 1] == 'E' && check_collect(var->map)) || var->map[var->p_pos->y][var->p_pos->x] == 'E')
+		if (var->map[var->p_pos->y][var->p_pos->x - 1] != '1' && ((var->map[var->p_pos->y][var->p_pos->x - 1] == 'E' && check_collect(var->map)) || var->map[var->p_pos->y][var->p_pos->x] == 'E'))
 		{
 			
 			var->p_pos->y = var->p_pos->y;
