@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/18 18:51:32 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/18 19:29:07 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@ void	destroy_images(t_env *env)
 	mlx_destroy_image(env->mlx, env->img.inner_wall);
 	mlx_destroy_image(env->mlx, env->img.floor);
 	mlx_destroy_image(env->mlx, env->img.door);
+	mlx_destroy_image(env->mlx, env->img.opened_door);
 	mlx_destroy_image(env->mlx, env->img.coin);
 	mlx_destroy_image(env->mlx, env->img.player_r);
+	mlx_destroy_image(env->mlx, env->img.player_u);
+	mlx_destroy_image(env->mlx, env->img.player_d);
+	mlx_destroy_image(env->mlx, env->img.player_l);
 	mlx_destroy_window(env->mlx, env->win);
 }
 
@@ -49,6 +53,14 @@ void	open_images(t_env *env, int *width, int *height, char **map)
 			"assetes/player/left032.xpm", width, height);
 }
 
+int closing_game(t_var *var)
+{
+	destroy_images(var->env);
+	ft_printf("You lost hehe\n");
+	free2d(var->map);
+	exit(0);
+}
+
 void	set_up_map(char **map)
 {
 	t_env	env;
@@ -68,7 +80,8 @@ void	set_up_map(char **map)
 		destroy_images(&env);
 		exit(0);
 	}
-	mlx_hook(env.win, 2, 1L << 0, movment_handler, &var);
+	mlx_hook(env.win, 2, 0, movment_handler, &var);
+	mlx_hook(env.win, 17, 0, closing_game, &var);
 	mlx_loop(env.mlx);
 }
 
