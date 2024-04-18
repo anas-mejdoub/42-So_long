@@ -7,10 +7,10 @@ bonus :
 
 clean :
 	@make clean -C ./Mandatory
-# @make clean -C ./Bonus
+	@make clean -C ./Bonus
 
 fclean :
-# @make fclean -C ./Bonus
+	@make fclean -C ./Bonus
 	@make fclean -C ./Mandatory
 
 re :
