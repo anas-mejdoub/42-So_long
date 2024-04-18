@@ -1,5 +1,5 @@
-SRCS = main.c parsing.c flood_fill.c render_map.c \
-so_long_utils.c handle_moves.c check_errs.c parse_utils.c
+SRCS = main_bonus.c parsing_bonus.c flood_fill_bonus.c render_map_bonus.c \
+parse_utils_bonus.c handle_moves_bonus.c check_errs_bonus.c parse_utils_bonus.c
 OBJBS = $(SRCS:.c=.o)
 NAME = ../so_long_bonus
 CC = cc
@@ -12,8 +12,8 @@ $(NAME) : $(OBJBS)
 	$(CC) $(CFLAGS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJBS) ../libft/libft.a
 	@echo "\033[1;32mthe Bonus target has been mad with success\033[0m"
 
-%.o : %.c push_swap_bonus.h
-	@$(CC) $(CFLAGS) -c $< -o $@
+%.o : %.c so_long_bonus.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
 	rm -rf $(OBJBS)
