@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 11:42:38 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/02/26 17:42:51 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/18 19:58:19 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,3 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (res);
 }
-

@@ -1,32 +1,19 @@
-SRCS = ./Mandatory/main.c ./Mandatory/parsing.c ./Mandatory/flood_fill.c ./Mandatory/render_map.c \
-./Mandatory/so_long_utils.c ./Mandatory/handle_moves.c ./Mandatory/check_errs.c ./Mandatory/parse_utils.c
-# SRCS_BONUS = ./Bonus/main_bonus.c ./Bonus/parsing_bonus.c ./Bonus/rules_bonus.c ./Bonus/rules2_bonus.c
-OBJBS = $(SRCS:.c=.o)
-# OBJBS_BONUS = $(SRCS_BONUS:.c=.o)
-NAME = so_long
-# NAME_BONUS = checker
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -Imlx
+NAME=so_long
+all :
+	@make -C ./Mandatory
 
-all : $(NAME)
-
-$(NAME) : $(OBJBS) ./Mandatory/so_long.h 
-	make -C ./libft
-	$(CC) $(CFLAGS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJBS) ./libft/libft.a
-
-# bonus : $(OBJBS_BONUS) ./bonus/push_swap_bonus.h
-# 	make -C ./libft
-# 	$(CC) $(CFLAGS) -o $(NAME_BONUS) $(OBJBS_BONUS) ./libft/libft.a
-
-%.o : %.c 
-	$(CC) $(CFLAGS) -c $< -o $@
+bonus : 
+	@make -C ./Bonus
 
 clean :
-	make clean -C ./libft
-	rm -rf $(OBJBS)
+	@make clean -C ./Mandatory
+# @make clean -C ./Bonus
 
-fclean : clean
-	make fclean -C ./libft
-	rm -rf $(NAME)
+fclean :
+# @make fclean -C ./Bonus
+	@make fclean -C ./Mandatory
 
-re : fclean all
+re :
+	@make re -C ./Mandatory
+
+.PHONY : bonus
