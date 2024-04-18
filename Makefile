@@ -1,4 +1,5 @@
-SRCS = ./Mandatory/main.c ./Mandatory/parsing.c ./Mandatory/flood_fill.c
+SRCS = ./Mandatory/main.c ./Mandatory/parsing.c ./Mandatory/flood_fill.c ./Mandatory/render_map.c \
+./Mandatory/so_long_utils.c ./Mandatory/handle_moves.c ./Mandatory/check_errs.c ./Mandatory/parse_utils.c
 # SRCS_BONUS = ./Bonus/main_bonus.c ./Bonus/parsing_bonus.c ./Bonus/rules_bonus.c ./Bonus/rules2_bonus.c
 OBJBS = $(SRCS:.c=.o)
 # OBJBS_BONUS = $(SRCS_BONUS:.c=.o)
