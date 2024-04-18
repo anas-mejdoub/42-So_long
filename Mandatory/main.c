@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/17 22:53:22 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:58:16 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,74 +53,70 @@ int	check_winner(char **map)
 // }
 int	movment_handler(int keycode, t_var *var)
 {
-	t_point	pos;
+	// t_point	pos;
 
-	pos = *var->p_pos;
+	// pos = *var->p_pos;
 	if (keycode == 1)
 	{
-		if (var->map[pos.y + 1][pos.x] == 'E' && check_collect(var->map))
+		if ((var->map[var->p_pos->y + 1][var->p_pos->x] == 'E' && check_collect(var->map)) || var->map[var->p_pos->y][var->p_pos->x] == 'E')
 		{
-			var->p_pos->y = pos.y + 1;
-			var->p_pos->x = pos.x;
+			ft_printf("YES\n");
+			var->p_pos->y = var->p_pos->y + 1;
+			var->p_pos->x = var->p_pos->x;
 		}
-		// 	return (render_map(var->map, var->env, var->env->img.player_d, var->p_pos));
-		else if (var->map[pos.y + 1][pos.x] != '1')
+		else if (var->map[var->p_pos->y + 1][var->p_pos->x] != '1')
 		{
-			var->p_pos->y = pos.y + 1;
-			var->p_pos->x = pos.x;
-			var->map[pos.y][pos.x] = '0';
-			// var->map[pos.y + 1][pos.x] = 'P';
+			var->p_pos->y = var->p_pos->y + 1;
+			var->p_pos->x = var->p_pos->x;
+			var->map[var->p_pos->y][var->p_pos->x] = '0';
 		}
 		render_map(var->map, var->env, var->env->img.player_d, var->p_pos);
 	}
 	if (keycode == 2)
 	{
-		if (var->map[pos.y][pos.x + 1] == 'E' && check_collect(var->map))
+		if ((var->map[var->p_pos->y][var->p_pos->x + 1] == 'E' && check_collect(var->map)) || var->map[var->p_pos->y][var->p_pos->x] == 'E')
 		{
-			var->p_pos->y = pos.y;
-			var->p_pos->x = pos.x + 1;
+			ft_printf("YES\n");
+			var->p_pos->y = var->p_pos->y;
+			var->p_pos->x = var->p_pos->x + 1;
 		}
-		
-		// 	return (render_map(var->map, var->env, var->env->img.player_r, var->p_pos));
-		else if (var->map[pos.y][pos.x + 1] != '1' || (var->map[pos.y][pos.x
-				+ 1] == 'E' && !check_collect(var->map)))
+		else if (var->map[var->p_pos->y][var->p_pos->x + 1] != '1')
 		{
-			var->p_pos->y = pos.y;
-			var->p_pos->x = pos.x + 1;
-			var->map[pos.y][pos.x] = '0';
-			// var->map[pos.y][pos.x + 1] = 'P';
+			var->p_pos->y = var->p_pos->y;
+			var->p_pos->x = var->p_pos->x + 1;
+			var->map[var->p_pos->y][var->p_pos->x] = '0';
 		}
 		render_map(var->map, var->env, var->env->img.player_r, var->p_pos);
 	}
 	if (keycode == 13)
 	{
-		if (var->map[pos.y - 1][pos.x] == 'E' && check_collect(var->map))
+		if ((var->map[var->p_pos->y - 1][var->p_pos->x] == 'E' && check_collect(var->map)) || var->map[var->p_pos->y][var->p_pos->x] == 'E')
 		{
-			var->p_pos->y = pos.y - 1;
-			var->p_pos->x = pos.x;
-			}// 	return (render_map(var->map, var->env, var->env->img.player_u, var->p_pos));
-		else if (var->map[pos.y - 1][pos.x] != '1')
+			ft_printf("YES\n");
+			var->p_pos->y = var->p_pos->y - 1;
+			var->p_pos->x = var->p_pos->x;
+			
+		}
+		else if (var->map[var->p_pos->y - 1][var->p_pos->x] != '1')
 		{
-			var->map[pos.y][pos.x] = '0';
-			// var->map[pos.y - 1][pos.x] = 'P';
-			var->p_pos->y = pos.y - 1;
-			var->p_pos->x = pos.x;
+			var->map[var->p_pos->y][var->p_pos->x] = '0';
+			var->p_pos->y = var->p_pos->y - 1;
 		}
 		render_map(var->map, var->env, var->env->img.player_u, var->p_pos);
 	}
 	if (keycode == 0)
 	{
-		if (var->map[pos.y][pos.x - 1] == 'E' && check_collect(var->map))
+		if ((var->map[var->p_pos->y][var->p_pos->x - 1] == 'E' && check_collect(var->map)) || var->map[var->p_pos->y][var->p_pos->x] == 'E')
 		{
-			var->p_pos->y = pos.y;
-			var->p_pos->x = pos.x - 1;
-		} // 	return (render_map(var->map, var->env, var->env->img.player_l, var->p_pos));
-		else if (var->map[pos.y][pos.x - 1] != '1')
+			ft_printf("YES\n");
+			var->p_pos->y = var->p_pos->y;
+			var->p_pos->x = var->p_pos->x - 1;
+		}
+		else if (var->map[var->p_pos->y][var->p_pos->x - 1] != '1')
 		{
-			var->map[pos.y][pos.x] = '0';
-			// var->map[pos.y][pos.x - 1] = 'P';
-			var->p_pos->y = pos.y;
-			var->p_pos->x = pos.x - 1;
+			var->map[var->p_pos->y][var->p_pos->x] = '0';
+			var->p_pos->y = var->p_pos->y;
+			var->p_pos->x = var->p_pos->x - 1;
 		}
 		render_map(var->map, var->env, var->env->img.player_l, var->p_pos);
 	}
@@ -149,7 +145,6 @@ int	render_map(char **map, t_env *env, void *player_dir, t_point *p_pos)
 	{
 		y = 0;
 		z = 0;
-		mlx_put_image_to_window(env->mlx, env->win, player_dir, p_pos->x * 32, p_pos->y *32);
 		while (map[i][y])
 		{
 			if (map[i][y] == '1')
@@ -173,17 +168,18 @@ int	render_map(char **map, t_env *env, void *player_dir, t_point *p_pos)
 					mlx_put_image_to_window(env->mlx, env->win, env->img.door, z,
 					h);
                 }
-			if (map[i][y] == 'C')
+			if (map[i][y] == 'C' && (i != p_pos->y || p_pos->x != y))
 				mlx_put_image_to_window(env->mlx, env->win, env->img.coin, z,
 					h);
-			// if (map[i][y] == 'P')
-			// 	mlx_put_image_to_window(env->mlx, env->win, player_dir, z, h);
 			z += 32;
 			y++;
 		}
 		h += 32;
 		i++;
 	}
+		if (map[p_pos->y][p_pos->x] == 'C')
+			map[p_pos->y][p_pos->x] = '0';
+		mlx_put_image_to_window(env->mlx, env->win, player_dir, p_pos->x * 32, p_pos->y *32);
 	return (1);
 }
 
