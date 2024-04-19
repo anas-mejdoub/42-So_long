@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/19 17:29:26 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/19 19:15:30 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	handel_down_move(t_var *var, int *move)
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
+	mlx_clear_window(var->env->mlx, var->env->win);
 	render_map(var->map, var->env, var->env->img.player_d, var->p_pos);
 }
 
@@ -51,6 +52,7 @@ void	handle_right_move(t_var *var, int *move)
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
+	mlx_clear_window(var->env->mlx, var->env->win);
 	render_map(var->map, var->env, var->env->img.player_r, var->p_pos);
 }
 
@@ -72,6 +74,7 @@ void	handle_up_move(t_var *var, int *move)
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
+	mlx_clear_window(var->env->mlx, var->env->win);
 	render_map(var->map, var->env, var->env->img.player_u, var->p_pos);
 }
 
@@ -93,20 +96,32 @@ void	handle_left_move(t_var *var, int *move)
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
+	mlx_clear_window(var->env->mlx, var->env->win);
 	render_map(var->map, var->env, var->env->img.player_l, var->p_pos);
 }
 
 int	movment_handler(int keycode, t_var *var)
 {
 	static int	move;
+	int			marge;
+	char		*str_move;
+	char		*str;
 
+	marge = (get_map_height(var->map) * 1.3 * 32) - (1.3 * 32);
 	if (keycode == 1 || keycode == 125)
 		handel_down_move(var, &move);
-	if (keycode == 2 || keycode == 124)
+	else if (keycode == 2 || keycode == 124)
 		handle_right_move(var, &move);
-	if (keycode == 13 || keycode == 126)
+	else if (keycode == 13 || keycode == 126)
 		handle_up_move(var, &move);
-	if (keycode == 0 || keycode == 123)
+	else if (keycode == 0 || keycode == 123)
 		handle_left_move(var, &move);
+	else
+		return (1);
+	str_move = ft_itoa(move);
+	str = ft_strjoin("moves : ", str_move);
+	mlx_string_put(var->env->mlx, var->env->win, 0, marge, 0x0f1232f, str);
+	free(str_move);
+	free(str);
 	return (1);
 }
