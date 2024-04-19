@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/19 18:55:05 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/19 22:46:41 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ typedef struct s_img
 	void	*door;
 	void	*opened_door;
 	void	*coin;
+	void	*coin2;
+	void	*coin3;
+	void	*coin4;
+	void	*coin5;
 }			t_img;
 
 typedef struct s_env
@@ -58,7 +62,11 @@ typedef struct s_env
 	void	*win;
 	void	*mlx;
 }			t_env;
-
+typedef struct s_render
+{
+	t_var *var;
+	void *player_dir;
+} t_render;
 typedef struct s_var
 {
 	char	**map;
@@ -82,4 +90,6 @@ t_point		item_postion(char **map, char c);
 int			check_winner(char **map);
 int			check_assets(t_env *env);
 void intialcounter (t_var *var);
+int handle_coins_anime(t_var *var, t_point point);
+
 #endif

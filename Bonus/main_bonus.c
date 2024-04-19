@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/19 18:55:59 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/19 22:34:58 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	open_images(t_env *env, int *width, int *height, char **map)
 			width, height);
 	env->img.door = mlx_xpm_file_to_image(env->mlx, "assetes/idle.xpm", width,
 			height);
-	env->img.coin = mlx_xpm_file_to_image(env->mlx, "assetes/coin.xpm", width,
-			height);
 	env->img.player_r = mlx_xpm_file_to_image(env->mlx,
 			"assetes/player/right032.xpm", width, height);
 	env->img.player_d = mlx_xpm_file_to_image(env->mlx,
@@ -54,6 +52,33 @@ int	open_images(t_env *env, int *width, int *height, char **map)
 			"assetes/player/left032.xpm", width, height);
 	if (!check_assets(env))
 		return (0);
+	return (1);
+}
+
+int check_coins_assetes(t_env *env)
+{
+	if (!env->img.coin|| !env->img.coin2 || !env->img.coin3
+		|| !env->img.coin4 || !env->img.coin5)
+		return (0);
+	return (1);
+}
+
+int open_coins(t_env *env , int *width, int *height)
+{
+	env->img.coin = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin1.xpm", width,
+			height);
+	env->img.coin2 = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin2.xpm", width,
+			height);
+	env->img.coin3 = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin3.xpm", width,
+			height);
+	env->img.coin4 = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin4.xpm", width,
+			height);
+	env->img.coin5 = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin5.xpm", width,
+			height);
+	if (!check_coins_assetes(env))
+	{	
+		return (0);
+	}
 	return (1);
 }
 
@@ -77,7 +102,7 @@ int	set_up_map(char **map)
 	p_pos = item_postion(map, 'P');
 	var.p_pos = &p_pos;
 	env.mlx = mlx_init();
-	if (!open_images(&env, &width, &height, map))
+	if (!open_images(&env, &width, &height, map) || !open_coins(&env, &width, &height))
 	{
 		free2d(map);
 		ft_putstr_fd("problem with the assetes !\n", 2);
@@ -86,6 +111,7 @@ int	set_up_map(char **map)
 	var.env = &env;
 	intialcounter(&var);
 	render_map(map, &env, env.img.player_r, &p_pos);
+	// mlx_loop_hook(env.mlx, )
 	mlx_hook(env.win, 2, 0, movment_handler, &var);
 	mlx_hook(env.win, 17, 0, closing_game, &var);
 	mlx_loop(env.mlx);
