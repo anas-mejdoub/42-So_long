@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/18 22:08:38 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/19 17:38:40 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int			movment_handler(int keycode, t_var *var);
 void		render_helper(t_var var, int i, int y, t_point point);
 void		render_exit(t_var *var, t_point *point);
 void		build_outer_wall(char **map, t_point p, t_point p2, t_env *env);
-void		destroy_images(t_env *env);
+void		destroy_images(t_env *env, int n);
 int			open_images(t_env *env, int *width, int *height, char **map);
 t_point		item_postion(char **map, char c);
 int			check_winner(char **map);

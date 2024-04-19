@@ -6,18 +6,17 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/18 22:32:55 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/19 17:49:31 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	destroy_images(t_env *env)
+void	destroy_images(t_env *env, int n)
 {
 	mlx_destroy_image(env->mlx, env->img.outer_wall);
 	mlx_destroy_image(env->mlx, env->img.inner_wall);
 	mlx_destroy_image(env->mlx, env->img.floor);
-	mlx_destroy_image(env->mlx, env->img.door);
 	mlx_destroy_image(env->mlx, env->img.opened_door);
 	mlx_destroy_image(env->mlx, env->img.coin);
 	mlx_destroy_image(env->mlx, env->img.player_r);
@@ -25,6 +24,8 @@ void	destroy_images(t_env *env)
 	mlx_destroy_image(env->mlx, env->img.player_d);
 	mlx_destroy_image(env->mlx, env->img.player_l);
 	mlx_destroy_window(env->mlx, env->win);
+	if (n == 0)
+		mlx_destroy_image(env->mlx, env->img.door);
 }
 
 int	open_images(t_env *env, int *width, int *height, char **map)
@@ -58,13 +59,13 @@ int	open_images(t_env *env, int *width, int *height, char **map)
 
 int	closing_game(t_var *var)
 {
-	destroy_images(var->env);
+	destroy_images(var->env, check_winner(var->map));
 	ft_printf("You lost ! hehe\n");
 	free2d(var->map);
 	exit(0);
 }
 
-void	set_up_map(char **map)
+int	set_up_map(char **map)
 {
 	t_env	env;
 	t_var	var;
@@ -83,14 +84,11 @@ void	set_up_map(char **map)
 		exit(1);
 	}
 	var.env = &env;
-	if (!render_map(map, &env, env.img.player_r, &p_pos))
-	{
-		destroy_images(&env);
-		exit(0);
-	}
+	render_map(map, &env, env.img.player_r, &p_pos);
 	mlx_hook(env.win, 2, 0, movment_handler, &var);
 	mlx_hook(env.win, 17, 0, closing_game, &var);
 	mlx_loop(env.mlx);
+	return (0);
 }
 
 void	check_leaks(void)

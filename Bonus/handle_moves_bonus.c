@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/18 22:10:20 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/19 17:29:26 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,12 @@ void	handel_down_move(t_var *var, int *move)
 			|| (var->map[var->p_pos->y][var->p_pos->x] == 'E')))
 	{
 		var->p_pos->y = var->p_pos->y + 1;
-		var->p_pos->x = var->p_pos->x;
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
 	else if (var->map[var->p_pos->y + 1][var->p_pos->x] != '1')
 	{
 		var->p_pos->y = var->p_pos->y + 1;
-		var->p_pos->x = var->p_pos->x;
 		var->map[var->p_pos->y][var->p_pos->x] = '0';
 		(*move)++;
 		ft_printf("%d move\n", *move);
@@ -42,14 +40,12 @@ void	handle_right_move(t_var *var, int *move)
 				&& check_collect(var->map))
 			|| (var->map[var->p_pos->y][var->p_pos->x] == 'E')))
 	{
-		var->p_pos->y = var->p_pos->y;
 		var->p_pos->x = var->p_pos->x + 1;
 		(*move)++;
 		ft_printf("%d moves\n", *move);
 	}
 	else if (var->map[var->p_pos->y][var->p_pos->x + 1] != '1')
 	{
-		var->p_pos->y = var->p_pos->y;
 		var->p_pos->x = var->p_pos->x + 1;
 		var->map[var->p_pos->y][var->p_pos->x] = '0';
 		(*move)++;
@@ -63,17 +59,16 @@ void	handle_up_move(t_var *var, int *move)
 	if (var->map[var->p_pos->y - 1][var->p_pos->x] != '1'
 		&& ((var->map[var->p_pos->y - 1][var->p_pos->x] == 'E'
 				&& check_collect(var->map))
-			|| var->map[var->p_pos->y][var->p_pos->x] == 'E'))
+			|| (var->map[var->p_pos->y][var->p_pos->x] == 'E')))
 	{
 		var->p_pos->y = var->p_pos->y - 1;
-		var->p_pos->x = var->p_pos->x;
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
 	else if (var->map[var->p_pos->y - 1][var->p_pos->x] != '1')
 	{
-		var->map[var->p_pos->y][var->p_pos->x] = '0';
 		var->p_pos->y = var->p_pos->y - 1;
+		var->map[var->p_pos->y][var->p_pos->x] = '0';
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
@@ -87,16 +82,14 @@ void	handle_left_move(t_var *var, int *move)
 				&& check_collect(var->map))
 			|| var->map[var->p_pos->y][var->p_pos->x] == 'E'))
 	{
-		var->p_pos->y = var->p_pos->y;
 		var->p_pos->x = var->p_pos->x - 1;
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
 	else if (var->map[var->p_pos->y][var->p_pos->x - 1] != '1')
 	{
-		var->map[var->p_pos->y][var->p_pos->x] = '0';
-		var->p_pos->y = var->p_pos->y;
 		var->p_pos->x = var->p_pos->x - 1;
+		var->map[var->p_pos->y][var->p_pos->x] = '0';
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
