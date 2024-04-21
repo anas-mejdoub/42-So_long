@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/21 15:57:17 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/21 17:22:28 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ int	movment_handler(int keycode, t_var *var)
 		return (1);
 	str_move = ft_itoa(move);
 	str = ft_strjoin("moves : ", str_move);
-	mlx_string_put(var->env->mlx, var->env->win, 0, marge, 0x0f1232f, str);
+	build_counter_z(var);
+	mlx_string_put(var->env->mlx, var->env->win, 0, marge, 0xf58d42, str);
 	free(str_move);
 	free(str);
 	return (1);

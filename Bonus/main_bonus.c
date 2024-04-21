@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/21 15:56:25 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/21 16:56:40 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	open_images(t_env *env, int *width, int *height, char **map)
 int	check_coins_assetes(t_env *env)
 {
 	if (!env->img.coin || !env->img.coin2 || !env->img.coin3 || !env->img.coin4
-		|| !env->img.coin5)
+		 || !env->img.coin5 || !env->img.floor_counter || !env->img.upper_counter)
 		return (0);
 	return (1);
 }
@@ -74,6 +74,10 @@ int	open_coins(t_env *env, int *width, int *height)
 	env->img.coin4 = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin4.xpm",
 			width, height);
 	env->img.coin5 = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin5.xpm",
+			width, height);
+	env->img.floor_counter = mlx_xpm_file_to_image(env->mlx, "assetes/floor_counter.xpm",
+			width, height);
+	env->img.upper_counter = mlx_xpm_file_to_image(env->mlx, "assetes/upper_counter.xpm",
 			width, height);
 	if (!check_coins_assetes(env))
 	{

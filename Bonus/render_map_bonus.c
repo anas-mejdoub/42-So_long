@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:37:53 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/21 15:47:29 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/21 17:12:05 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 int	render_map(char **map, t_env *env, void *player_dir, t_point *p_pos)
 {
-	// (void)player_dir;
-	// (void)map;
-	// (void)env;
-	// (void)p_pos;
 	if (check_winner(map) == 1)
 	{
 		ft_printf("congrats You win !\ngame closing\n");
@@ -70,9 +66,12 @@ void	render_exit(t_var *var, t_point *point)
 
 void	build_outer_wall(char **map, t_point p, t_point p2, t_env *env)
 {
-	if (p.y == 0 || p.x == 0 || p.x == get_map_width(map) - 1
+	if (p.y == get_map_height(map) - 1 && (p.x != 0 && p.x != get_map_width(map) - 1))
+		mlx_put_image_to_window(env->mlx, env->win, env->img.upper_counter, p2.x,
+			p2.y);
+	else if (p.y == 0 || p.x == 0 || p.x == get_map_width(map) - 1
 		|| p.y == get_map_height(map) - 1)
-		mlx_put_image_to_window(env->mlx, env->win, env->img.outer_wall, p2.x,
+		mlx_put_image_to_window(env->mlx, env->win, env->img.floor_counter, p2.x,
 			p2.y);
 	else
 		mlx_put_image_to_window(env->mlx, env->win, env->img.inner_wall, p2.x,

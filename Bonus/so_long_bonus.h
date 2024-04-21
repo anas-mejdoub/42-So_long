@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/21 13:09:15 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/21 16:41:36 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ typedef struct s_img
 	void	*coin3;
 	void	*coin4;
 	void	*coin5;
-	void	*coin_a;
+	void	*floor_counter;
+	void	*upper_counter;
 }			t_img;
 
 typedef struct s_env
@@ -100,5 +101,5 @@ t_point		item_postion(char **map, char c);
 int			check_winner(char **map);
 int			check_assets(t_env *env);
 void intialcounter (t_var *var);
-
+void build_counter_z(t_var *var);
 #endif
