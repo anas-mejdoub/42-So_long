@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/19 19:15:30 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:57:17 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	handel_down_move(t_var *var, int *move)
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
-	mlx_clear_window(var->env->mlx, var->env->win);
+	// mlx_clear_window(var->env->mlx, var->env->win);
 	render_map(var->map, var->env, var->env->img.player_d, var->p_pos);
 }
 
@@ -52,7 +52,7 @@ void	handle_right_move(t_var *var, int *move)
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
-	mlx_clear_window(var->env->mlx, var->env->win);
+	// mlx_clear_window(var->env->mlx, var->env->win);
 	render_map(var->map, var->env, var->env->img.player_r, var->p_pos);
 }
 
@@ -74,7 +74,7 @@ void	handle_up_move(t_var *var, int *move)
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
-	mlx_clear_window(var->env->mlx, var->env->win);
+	// mlx_clear_window(var->env->mlx, var->env->win);
 	render_map(var->map, var->env, var->env->img.player_u, var->p_pos);
 }
 
@@ -96,7 +96,7 @@ void	handle_left_move(t_var *var, int *move)
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
-	mlx_clear_window(var->env->mlx, var->env->win);
+	// mlx_clear_window(var->env->mlx, var->env->win);
 	render_map(var->map, var->env, var->env->img.player_l, var->p_pos);
 }
 

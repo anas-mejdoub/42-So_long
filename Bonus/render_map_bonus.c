@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:37:53 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/19 22:41:15 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:47:29 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 int	render_map(char **map, t_env *env, void *player_dir, t_point *p_pos)
 {
+	// (void)player_dir;
+	// (void)map;
+	// (void)env;
+	// (void)p_pos;
 	if (check_winner(map) == 1)
 	{
 		ft_printf("congrats You win !\ngame closing\n");
@@ -28,41 +32,7 @@ int	render_map(char **map, t_env *env, void *player_dir, t_point *p_pos)
 		p_pos->y * 32);
 	return (1);
 }
-int handle_coins_anime(t_var *var, t_point point)
-{
-	static int step;
-	if (step == 0)
-	{
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-					var->env->img.coin, point.x, point.y);
-		step++;
-	}
-	if (step == 1)
-	{
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-					var->env->img.coin2, point.x, point.y);
-		step++;
-	}
-	if (step == 2)
-	{
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-					var->env->img.coin3, point.x, point.y);
-					step ++;
-	}
-	if (step == 3)
-	{
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-					var->env->img.coin4, point.x, point.y);
-			step++;
-	}
-	if (step == 4)
-	{
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-					var->env->img.coin5, point.x, point.y);
-		step = 0;
-	}
-	return (0);
-}
+
 
 
 void	render_helper(t_var var, int i, int y, t_point point)
@@ -77,14 +47,11 @@ void	render_helper(t_var var, int i, int y, t_point point)
 				build_outer_wall(var.map, (t_point){i, y}, (t_point){point.y,
 					point.x}, var.env);
 			if (var.map[i][y] == '0' || var.map[i][y] == 'P'
-				|| var.map[i][y] == 'C' || var.map[i][y] == 'E')
+				|| var.map[i][y] == 'E')
 				mlx_put_image_to_window(var.env->mlx, var.env->win,
 					var.env->img.floor, point.x, point.y);
 			if (var.map[i][y] == 'E')
 				render_exit(&var, &point);
-			if (var.map[i][y] == 'C' && (i != var.p_pos->y
-					|| var.p_pos->x != y))
-						handle_coins_anime(&var, point);
 			point.x += 32;
 			y++;
 		}

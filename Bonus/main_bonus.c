@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/19 22:34:58 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:56:25 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,28 +55,28 @@ int	open_images(t_env *env, int *width, int *height, char **map)
 	return (1);
 }
 
-int check_coins_assetes(t_env *env)
+int	check_coins_assetes(t_env *env)
 {
-	if (!env->img.coin|| !env->img.coin2 || !env->img.coin3
-		|| !env->img.coin4 || !env->img.coin5)
+	if (!env->img.coin || !env->img.coin2 || !env->img.coin3 || !env->img.coin4
+		|| !env->img.coin5)
 		return (0);
 	return (1);
 }
 
-int open_coins(t_env *env , int *width, int *height)
+int	open_coins(t_env *env, int *width, int *height)
 {
-	env->img.coin = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin1.xpm", width,
-			height);
-	env->img.coin2 = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin2.xpm", width,
-			height);
-	env->img.coin3 = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin3.xpm", width,
-			height);
-	env->img.coin4 = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin4.xpm", width,
-			height);
-	env->img.coin5 = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin5.xpm", width,
-			height);
+	env->img.coin = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin1.xpm",
+			width, height);
+	env->img.coin2 = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin2.xpm",
+			width, height);
+	env->img.coin3 = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin3.xpm",
+			width, height);
+	env->img.coin4 = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin4.xpm",
+			width, height);
+	env->img.coin5 = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin5.xpm",
+			width, height);
 	if (!check_coins_assetes(env))
-	{	
+	{
 		return (0);
 	}
 	return (1);
@@ -90,28 +90,149 @@ int	closing_game(t_var *var)
 	exit(0);
 }
 
+t_coins	*last_coin(t_coins *lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}
+
+void	add_coins_back(t_coins **lst, t_point pos)
+{
+	t_coins	*new;
+
+	if (!lst)
+	{
+		return ;
+	}
+	new = (t_coins *)malloc(sizeof(t_coins));
+	if (!new)
+		return ;
+	new->c_pos = pos;
+	new->next = NULL;
+	if (!(*lst))
+	{
+		*lst = new;
+	}
+	else
+		last_coin(*lst)->next = new;
+}
+
+void	fill_coins(t_coins_var *variable)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (variable->var->map[i])
+	{
+		j = 0;
+		while (variable->var->map[i][j])
+		{
+			if (variable->var->map[i][j] == 'C')
+			{
+				add_coins_back(&(variable)->coins, (t_point){i, j});
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void *ask_for_img(t_coins_var *variable)
+{
+	void *res;
+	static int n;
+	if (n == 0)
+		res = variable->var->env->img.coin;
+	else if (n == 1)
+		res = variable->var->env->img.coin2;
+	else if (n == 2)
+		res = variable->var->env->img.coin3;
+	else if (n == 3)
+		res = variable->var->env->img.coin4;
+	else if (n == 4)
+		res = variable->var->env->img.coin5;
+	else
+	{
+		n = 0;
+		res = variable->var->env->img.coin;
+	}
+	n++;
+	return (res);
+}
+int check_c(t_coins_var *variable)
+{
+	if (variable->var->map[variable->coins->c_pos.y][variable->coins->c_pos.x] == 'C')
+		return 1;
+	return 0;
+}
+int	render_coins(t_coins_var *variable)
+{
+	static int timer;
+	timer++;
+	t_coins *tmp = variable->coins;
+	if (timer == 700)
+	{
+	void *test = ask_for_img(variable);
+	while (variable->coins)
+	{
+		if (check_c(variable))
+		{
+			mlx_put_image_to_window(variable->var->env->mlx,
+			variable->var->env->win, variable->var->env->img.floor, variable->coins->c_pos.x * 32,
+			variable->coins->c_pos.y * 32);
+		mlx_put_image_to_window(variable->var->env->mlx,
+			variable->var->env->win, test, variable->coins->c_pos.x * 32,
+			variable->coins->c_pos.y * 32);
+		}
+		variable->coins = variable->coins->next;
+	}
+	}
+	else if (timer > 700)
+		timer = 0;
+	variable->coins = tmp;
+	return (1);
+}
+void img_value(t_coins_var variable)
+{
+	while (variable.coins)
+	{
+		variable.coins->img = variable.var->env->img.coin;
+		variable.coins = variable.coins->next;
+	}
+}
 int	set_up_map(char **map)
 {
-	t_env	env;
-	t_var	var;
-	int		width;
-	int		height;
-	t_point	p_pos;
+	t_env		env;
+	t_var		var;
+	int			width;
+	int			height;
+	t_point		p_pos;
+	t_coins_var	variable;
 
 	var.map = map;
 	p_pos = item_postion(map, 'P');
 	var.p_pos = &p_pos;
 	env.mlx = mlx_init();
-	if (!open_images(&env, &width, &height, map) || !open_coins(&env, &width, &height))
+	if (!open_images(&env, &width, &height, map) || !open_coins(&env, &width,
+			&height))
 	{
 		free2d(map);
 		ft_putstr_fd("problem with the assetes !\n", 2);
 		exit(1);
 	}
 	var.env = &env;
+	variable.var = &var;
+	variable.coins = NULL;
 	intialcounter(&var);
+	fill_coins(&variable);
+	img_value(variable);
 	render_map(map, &env, env.img.player_r, &p_pos);
-	// mlx_loop_hook(env.mlx, )
+	mlx_loop_hook(env.mlx, render_coins, &variable);
 	mlx_hook(env.win, 2, 0, movment_handler, &var);
 	mlx_hook(env.win, 17, 0, closing_game, &var);
 	mlx_loop(env.mlx);

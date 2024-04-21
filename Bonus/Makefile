@@ -9,7 +9,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJBS) so_long_bonus.h
 	@make -C ../libft
-	$(CC) $(CFLAGS) -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJBS) ../libft/libft.a
+	$(CC) $(CFLAGS)  -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJBS) ../libft/libft.a
 	@echo "\033[1;32mthe Bonus target has been mad with success\033[0m"
 
 %.o : %.c
