@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/21 17:22:28 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:41:49 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	handel_down_move(t_var *var, int *move)
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
-	// mlx_clear_window(var->env->mlx, var->env->win);
 	render_map(var->map, var->env, var->env->img.player_d, var->p_pos);
 }
 
@@ -52,7 +51,6 @@ void	handle_right_move(t_var *var, int *move)
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
-	// mlx_clear_window(var->env->mlx, var->env->win);
 	render_map(var->map, var->env, var->env->img.player_r, var->p_pos);
 }
 
@@ -74,7 +72,6 @@ void	handle_up_move(t_var *var, int *move)
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
-	// mlx_clear_window(var->env->mlx, var->env->win);
 	render_map(var->map, var->env, var->env->img.player_u, var->p_pos);
 }
 
@@ -96,7 +93,6 @@ void	handle_left_move(t_var *var, int *move)
 		(*move)++;
 		ft_printf("%d move\n", *move);
 	}
-	// mlx_clear_window(var->env->mlx, var->env->win);
 	render_map(var->map, var->env, var->env->img.player_l, var->p_pos);
 }
 
@@ -116,8 +112,8 @@ int	movment_handler(int keycode, t_var *var)
 		handle_up_move(var, &move);
 	else if (keycode == 0 || keycode == 123)
 		handle_left_move(var, &move);
-	else
-		return (1);
+	else if (keycode == 53)
+		closing_game(var);
 	str_move = ft_itoa(move);
 	str = ft_strjoin("moves : ", str_move);
 	build_counter_z(var);

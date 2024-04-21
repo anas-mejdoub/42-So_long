@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/21 16:41:36 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:41:29 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,5 @@ int			check_winner(char **map);
 int			check_assets(t_env *env);
 void intialcounter (t_var *var);
 void build_counter_z(t_var *var);
+int	closing_game(t_var *var);
 #endif

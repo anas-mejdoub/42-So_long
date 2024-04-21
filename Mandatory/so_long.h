@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/19 17:49:59 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:43:43 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ int			open_images(t_env *env, int *width, int *height, char **map);
 t_point		item_postion(char **map, char c);
 int			check_winner(char **map);
 int			check_assets(t_env *env);
+int	closing_game(t_var *var);
 #endif
