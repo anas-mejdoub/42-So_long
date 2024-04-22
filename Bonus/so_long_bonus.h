@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/21 19:41:29 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:17:59 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int			get_map_height(char **map);
 int			get_map_width(char **map);
 void		remove_nl(char **map);
 int			check_wall_helper(int i, int j, int last, char **map);
+int	check_execp(char **map);
+
 typedef struct s_point
 {
 	int		y;
@@ -56,6 +58,10 @@ typedef struct s_img
 	void	*coin5;
 	void	*floor_counter;
 	void	*upper_counter;
+	void	*enemy_up;
+	void	*enemy_right;
+	void	*enemy_left;
+	void	*enemy_down;
 }			t_img;
 
 typedef struct s_env
@@ -103,4 +109,7 @@ int			check_assets(t_env *env);
 void intialcounter (t_var *var);
 void build_counter_z(t_var *var);
 int	closing_game(t_var *var);
+void handle_enemy(t_coins_var *variable);
+void render_enemy(t_coins_var *variable);
+t_point search_p(char **map, t_point enemy, t_point player);
 #endif

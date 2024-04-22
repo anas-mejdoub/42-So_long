@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/22 11:11:24 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/22 19:06:04 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,12 +174,42 @@ int check_c(t_coins_var *variable)
 		return 1;
 	return 0;
 }
+
+void render_enemy(t_coins_var *variable)
+{
+	int i = 0;
+	int j;
+
+	while (variable->var->map[i])
+	{
+		j = 0;
+		while (variable->var->map[i][j])
+		{
+			if (variable->var->map[i][j] == 'X')
+			{
+				mlx_put_image_to_window(variable->var->env->mlx, variable->var->env->win, variable->var->env->img.enemy_right, j * 32, i * 32);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+void enemy_caller(t_coins_var *variable)
+{
+	static int timer;
+	timer++;
+	if (timer == 2000)
+		handle_enemy(variable);
+	else if (timer > 9000)
+		timer = 0;
+}
 int	render_coins(t_coins_var *variable)
 {
 	static int timer;
 	timer++;
 	t_coins *tmp = variable->coins;
-	if (timer == 700)
+	enemy_caller(variable);
+	if (timer == 500)
 	{
 	void *test = ask_for_img(variable);
 	while (variable->coins)
@@ -189,18 +219,47 @@ int	render_coins(t_coins_var *variable)
 			mlx_put_image_to_window(variable->var->env->mlx,
 			variable->var->env->win, variable->var->env->img.floor, variable->coins->c_pos.x * 32,
 			variable->coins->c_pos.y * 32);
-		mlx_put_image_to_window(variable->var->env->mlx,
+			mlx_put_image_to_window(variable->var->env->mlx,
 			variable->var->env->win, test, variable->coins->c_pos.x * 32,
 			variable->coins->c_pos.y * 32);
 		}
 		variable->coins = variable->coins->next;
 	}
 	}
-	else if (timer > 700)
+	else if (timer > 500)
 		timer = 0;
 	variable->coins = tmp;
 	return (1);
 }
+
+void handle_enemy(t_coins_var *variable)
+{
+	t_point pos;
+	int i = 0;
+	int j;
+	pos.x = 0;
+	pos.y = 0;
+
+	while (variable->var->map[i])
+	{
+		j = 0;
+		while (variable->var->map[i][j])
+		{
+			if (variable->var->map[i][j] == 'X' && pos.x != j && pos.y != i)
+			{
+				pos = search_p(variable->var->map, (t_point){i, j}, *variable->var->p_pos);
+				ft_printf ("the pos : %d %d\n", pos.y, pos.x);
+				mlx_put_image_to_window(variable->var->env->mlx, variable->var->env->win, variable->var->env->img.enemy_right, pos.x * 32, pos.y * 32);
+				mlx_put_image_to_window(variable->var->env->mlx, variable->var->env->win, variable->var->env->img.floor, j * 32, i * 32);
+				variable->var->map[i][j] = '0';
+				variable->var->map[pos.y][pos.x] = 'X';
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void img_value(t_coins_var variable)
 {
 	while (variable.coins)
@@ -209,6 +268,29 @@ void img_value(t_coins_var variable)
 		variable.coins = variable.coins->next;
 	}
 }
+
+int check_enemy_assets(t_env *env)
+{
+	if (!env->img.enemy_up || !env->img.enemy_down || !env->img.enemy_left || !env->img.enemy_right)
+		return (0);
+	return (1);
+}
+
+int  open_enemy(t_env *env, int *width, int *height)
+{
+	env->img.enemy_up = mlx_xpm_file_to_image(env->mlx, "assetes/enemy/enemy_up.xpm",
+			width, height);
+	env->img.enemy_down = mlx_xpm_file_to_image(env->mlx, "assetes/enemy/enemy_down.xpm",
+			width, height);
+	env->img.enemy_right = mlx_xpm_file_to_image(env->mlx, "assetes/enemy/enemy_right.xpm",
+			width, height);
+	env->img.enemy_left = mlx_xpm_file_to_image(env->mlx, "assetes/enemy/enemy_left.xpm",
+			width, height);
+	if (!check_enemy_assets(env))
+		return (0);
+	return (1);
+}
+
 int	set_up_map(char **map)
 {
 	t_env		env;
@@ -223,7 +305,7 @@ int	set_up_map(char **map)
 	var.p_pos = &p_pos;
 	env.mlx = mlx_init();
 	if (!open_images(&env, &width, &height, map) || !open_coins(&env, &width,
-			&height))
+			&height) || !open_enemy(&env, &width, &height))
 	{
 		free2d(map);
 		ft_putstr_fd("problem with the assetes !\n", 2);

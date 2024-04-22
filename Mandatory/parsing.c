@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:41:41 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/18 19:16:20 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:26:43 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	check_map_error(char **map)
 {
 	if (check_exit(map) && check_position(map) && check_walls(map)
 		&& check_collect(map) && check_rectangular(map)
-		&& floodfill(dup2d(map)))
+		&& floodfill(dup2d(map)) && check_execp(map))
 		return (1);
 	return (0);
 }

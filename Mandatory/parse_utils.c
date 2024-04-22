@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:57:29 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/18 19:15:30 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:25:33 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,3 +68,24 @@ int	check_wall_helper(int i, int j, int last, char **map)
 	}
 	return (1);
 }
+
+int	check_execp(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] != 'C' && map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'P' && map[i][j] != 'E')
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
