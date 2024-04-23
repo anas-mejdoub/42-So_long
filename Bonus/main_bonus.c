@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/22 19:06:04 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/23 12:30:20 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int	open_images(t_env *env, int *width, int *height, char **map)
 int	check_coins_assetes(t_env *env)
 {
 	if (!env->img.coin || !env->img.coin2 || !env->img.coin3 || !env->img.coin4
-		 || !env->img.coin5 || !env->img.floor_counter || !env->img.upper_counter)
+		|| !env->img.coin5 || !env->img.floor_counter
+		|| !env->img.upper_counter)
 		return (0);
 	return (1);
 }
@@ -75,10 +76,10 @@ int	open_coins(t_env *env, int *width, int *height)
 			width, height);
 	env->img.coin5 = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin5.xpm",
 			width, height);
-	env->img.floor_counter = mlx_xpm_file_to_image(env->mlx, "assetes/floor_counter.xpm",
-			width, height);
-	env->img.upper_counter = mlx_xpm_file_to_image(env->mlx, "assetes/upper_counter.xpm",
-			width, height);
+	env->img.floor_counter = mlx_xpm_file_to_image(env->mlx,
+			"assetes/floor_counter.xpm", width, height);
+	env->img.upper_counter = mlx_xpm_file_to_image(env->mlx,
+			"assetes/upper_counter.xpm", width, height);
 	if (!check_coins_assetes(env))
 	{
 		return (0);
@@ -146,10 +147,11 @@ void	fill_coins(t_coins_var *variable)
 	}
 }
 
-void *ask_for_img(t_coins_var *variable)
+void	*ask_for_img(t_coins_var *variable)
 {
-	void *res;
-	static int n;
+	void		*res;
+	static int	n;
+
 	if (n == 0)
 		res = variable->var->env->img.coin;
 	else if (n == 1)
@@ -168,99 +170,109 @@ void *ask_for_img(t_coins_var *variable)
 	n++;
 	return (res);
 }
-int check_c(t_coins_var *variable)
+int	check_c(t_coins_var *variable)
 {
 	if (variable->var->map[variable->coins->c_pos.y][variable->coins->c_pos.x] == 'C')
-		return 1;
-	return 0;
+		return (1);
+	return (0);
 }
 
-void render_enemy(t_coins_var *variable)
-{
-	int i = 0;
-	int j;
+// void render_enemy(t_coins_var *variable)
+// {
+// 	t_enemies *tmp = variable->enemies;
 
-	while (variable->var->map[i])
-	{
-		j = 0;
-		while (variable->var->map[i][j])
-		{
-			if (variable->var->map[i][j] == 'X')
-			{
-				mlx_put_image_to_window(variable->var->env->mlx, variable->var->env->win, variable->var->env->img.enemy_right, j * 32, i * 32);
-			}
-			j++;
-		}
-		i++;
-	}
-}
-void enemy_caller(t_coins_var *variable)
+// 	// int i = 0;
+// 	// int j;
+
+// 	// while (variable->var->map[i])
+// 	// {
+// 	// 	j = 0;
+// 	// 	while (variable->var->map[i][j])
+// 	// 	{
+// 	// 		if (variable->var->map[i][j] == 'X')
+// 	// 		{
+// 	// 			mlx_put_image_to_window(variable->var->env->mlx,
+					// variable->var->env->win,
+					// variable->var->env->img.enemy_right, j * 32, i * 32);
+// 	// 		}
+// 	// 		j++;
+// 	// 	}
+// 	// 	i++;
+// 	// }
+// }
+void	enemy_caller(t_coins_var *variable)
 {
-	static int timer;
+	static int	timer;
+
 	timer++;
-	if (timer == 2000)
+	if (timer == 5000)
 		handle_enemy(variable);
-	else if (timer > 9000)
+	else if (timer > 5000)
 		timer = 0;
 }
 int	render_coins(t_coins_var *variable)
 {
-	static int timer;
+	static int	timer;
+	t_coins		*tmp;
+	void		*test;
+
 	timer++;
-	t_coins *tmp = variable->coins;
+	// ft_printf("%d\n", timer);
+	tmp = variable->coins;
 	enemy_caller(variable);
-	if (timer == 500)
+	if (timer == 700)
 	{
-	void *test = ask_for_img(variable);
-	while (variable->coins)
-	{
-		if (check_c(variable))
+		test = ask_for_img(variable);
+		while (variable->coins)
 		{
-			mlx_put_image_to_window(variable->var->env->mlx,
-			variable->var->env->win, variable->var->env->img.floor, variable->coins->c_pos.x * 32,
-			variable->coins->c_pos.y * 32);
-			mlx_put_image_to_window(variable->var->env->mlx,
-			variable->var->env->win, test, variable->coins->c_pos.x * 32,
-			variable->coins->c_pos.y * 32);
+			if (check_c(variable))
+			{
+				mlx_put_image_to_window(variable->var->env->mlx,
+					variable->var->env->win, variable->var->env->img.floor,
+					variable->coins->c_pos.x * 32, variable->coins->c_pos.y
+					* 32);
+				mlx_put_image_to_window(variable->var->env->mlx,
+					variable->var->env->win, test, variable->coins->c_pos.x
+					* 32, variable->coins->c_pos.y * 32);
+			}
+			variable->coins = variable->coins->next;
 		}
-		variable->coins = variable->coins->next;
 	}
-	}
-	else if (timer > 500)
+	else if (timer > 700)
 		timer = 0;
 	variable->coins = tmp;
 	return (1);
 }
 
-void handle_enemy(t_coins_var *variable)
+void	handle_enemy(t_coins_var *variable)
 {
-	t_point pos;
-	int i = 0;
-	int j;
-	pos.x = 0;
-	pos.y = 0;
-
-	while (variable->var->map[i])
+	t_point		pos;
+	t_enemies	*tmp;
+	
+	tmp = variable->enemies;
+	while (variable->enemies)
 	{
-		j = 0;
-		while (variable->var->map[i][j])
+		pos = search_p(variable->var->map, variable->enemies->e_pos,
+				*variable->var->p_pos);
+		if (pos.x != variable->enemies->e_pos.x || pos.y != variable->enemies->e_pos.y)
 		{
-			if (variable->var->map[i][j] == 'X' && pos.x != j && pos.y != i)
-			{
-				pos = search_p(variable->var->map, (t_point){i, j}, *variable->var->p_pos);
-				ft_printf ("the pos : %d %d\n", pos.y, pos.x);
-				mlx_put_image_to_window(variable->var->env->mlx, variable->var->env->win, variable->var->env->img.enemy_right, pos.x * 32, pos.y * 32);
-				mlx_put_image_to_window(variable->var->env->mlx, variable->var->env->win, variable->var->env->img.floor, j * 32, i * 32);
-				variable->var->map[i][j] = '0';
-				variable->var->map[pos.y][pos.x] = 'X';
-			}
-			j++;
+			mlx_put_image_to_window(variable->var->env->mlx,
+				variable->var->env->win, variable->enemies->img,
+				pos.x * 32, pos.y * 32);
+			mlx_put_image_to_window(variable->var->env->mlx,
+				variable->var->env->win, variable->var->env->img.floor,
+				variable->enemies->e_pos.x * 32, variable->enemies->e_pos.y * 32);
+			variable->var->map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] = '0';
+			variable->var->map[pos.y][pos.x] = 'X';
+			variable->enemies->e_pos = pos;
+			
 		}
-		i++;
+		variable->enemies = variable->enemies->next;
 	}
+	variable->enemies = tmp;
 }
 
-void img_value(t_coins_var variable)
+void	img_value(t_coins_var variable)
 {
 	while (variable.coins)
 	{
@@ -269,28 +281,88 @@ void img_value(t_coins_var variable)
 	}
 }
 
-int check_enemy_assets(t_env *env)
+int	check_enemy_assets(t_env *env)
 {
-	if (!env->img.enemy_up || !env->img.enemy_down || !env->img.enemy_left || !env->img.enemy_right)
+	if (!env->img.enemy_up || !env->img.enemy_down || !env->img.enemy_left
+		|| !env->img.enemy_right)
 		return (0);
 	return (1);
 }
 
-int  open_enemy(t_env *env, int *width, int *height)
+int	open_enemy(t_env *env, int *width, int *height)
 {
-	env->img.enemy_up = mlx_xpm_file_to_image(env->mlx, "assetes/enemy/enemy_up.xpm",
-			width, height);
-	env->img.enemy_down = mlx_xpm_file_to_image(env->mlx, "assetes/enemy/enemy_down.xpm",
-			width, height);
-	env->img.enemy_right = mlx_xpm_file_to_image(env->mlx, "assetes/enemy/enemy_right.xpm",
-			width, height);
-	env->img.enemy_left = mlx_xpm_file_to_image(env->mlx, "assetes/enemy/enemy_left.xpm",
-			width, height);
+	env->img.enemy_up = mlx_xpm_file_to_image(env->mlx,
+			"assetes/enemy/enemy_up.xpm", width, height);
+	env->img.enemy_down = mlx_xpm_file_to_image(env->mlx,
+			"assetes/enemy/enemy_down.xpm", width, height);
+	env->img.enemy_right = mlx_xpm_file_to_image(env->mlx,
+			"assetes/enemy/enemy_right.xpm", width, height);
+	env->img.enemy_left = mlx_xpm_file_to_image(env->mlx,
+			"assetes/enemy/enemy_left.xpm", width, height);
 	if (!check_enemy_assets(env))
 		return (0);
 	return (1);
 }
+t_enemies	*last_enemy(t_enemies *lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}
+void	add_enemies_back(t_enemies **lst, t_point pos)
+{
+	t_enemies	*new;
 
+	if (!lst)
+	{
+		return ;
+	}
+	new = (t_enemies *)malloc(sizeof(t_enemies));
+	if (!new)
+		return ;
+	new->e_pos.x = pos.x;
+	new->e_pos.y = pos.y;
+	new->next = NULL;
+	if (!(*lst))
+	{
+		*lst = new;
+	}
+	else
+		last_enemy(*lst)->next = new;
+}
+
+void	fill_enemies(t_coins_var *variable)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (variable->var->map[i])
+	{
+		j = 0;
+		while (variable->var->map[i][j])
+		{
+			if (variable->var->map[i][j] == 'X')
+			{
+				add_enemies_back(&(variable)->enemies, (t_point){i, j});
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void	enemies_img_intial(t_coins_var variable)
+{
+	while (variable.enemies)
+	{
+		variable.enemies->img = variable.var->env->img.enemy_right;
+		variable.enemies = variable.enemies->next;
+	}
+}
 int	set_up_map(char **map)
 {
 	t_env		env;
@@ -314,9 +386,18 @@ int	set_up_map(char **map)
 	var.env = &env;
 	variable.var = &var;
 	variable.coins = NULL;
+	variable.enemies = NULL;
 	intialcounter(&var);
 	fill_coins(&variable);
+	fill_enemies(&variable);
+	// while (variable.enemies)
+	// {
+	// 	ft_printf("%d %d \n", variable.enemies->e_pos.y,
+			//  variable.enemies->e_pos.x);
+	// 		variable.enemies =  variable.enemies->next;
+	// }
 	img_value(variable);
+	enemies_img_intial(variable);
 	render_map(map, &env, env.img.player_r, &p_pos);
 	mlx_loop_hook(env.mlx, render_coins, &variable);
 	mlx_hook(env.win, 2, 0, movment_handler, &var);

@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/22 18:17:59 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:21:34 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,16 @@ typedef struct s_var
 	t_point	*p_pos;
 }			t_var;
 
+typedef struct s_enemies
+{
+	t_point e_pos;
+	void *img;
+	struct s_enemies *next;
+} t_enemies;
+
 typedef struct s_coins_var
 {
+	t_enemies *enemies;
 	t_coins *coins;
 	t_var *var;
 } t_coins_var;
