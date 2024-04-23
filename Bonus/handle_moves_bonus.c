@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/21 19:41:49 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:13:10 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,87 +15,183 @@
 void	handel_down_move(t_var *var, int *move)
 {
 	if (var->map[var->p_pos->y + 1][var->p_pos->x] != '1'
-		&& ((var->map[var->p_pos->y + 1][var->p_pos->x] == 'E'
-				&& check_collect(var->map))
-			|| (var->map[var->p_pos->y][var->p_pos->x] == 'E')))
+		&& ((var->map[var->p_pos->y][var->p_pos->x] == 'E'
+				&& check_collect(var->map))))
 	{
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.door, var->p_pos->x * 32, var->p_pos->y * 32);
 		var->p_pos->y = var->p_pos->y + 1;
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.player_d, var->p_pos->x * 32, var->p_pos->y * 32);
 		(*move)++;
-		ft_printf("%d move\n", *move);
 	}
+	else if (var->map[var->p_pos->y + 1][var->p_pos->x] != '1'
+		&& var->map[var->p_pos->y + 1][var->p_pos->x] == 'E'
+				&& !check_collect(var->map))
+		{
+			ft_printf("congrats You win !\ngame closing\n");
+		destroy_images(var->env, 1);
+		free2d(var->map);
+		exit(0);
+		}
 	else if (var->map[var->p_pos->y + 1][var->p_pos->x] != '1')
 	{
-		var->p_pos->y = var->p_pos->y + 1;
 		var->map[var->p_pos->y][var->p_pos->x] = '0';
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.floor, var->p_pos->x * 32, (var->p_pos->y) * 32);
+		var->p_pos->y = var->p_pos->y + 1;
+		if (var->map[var->p_pos->y][var->p_pos->x] != 'E')
+		{
+			mlx_put_image_to_window(var->env->mlx, var->env->win,
+				var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
+			var->map[var->p_pos->y][var->p_pos->x] = '0';
+		}
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.player_d, var->p_pos->x * 32, var->p_pos->y * 32);
 		(*move)++;
-		ft_printf("%d move\n", *move);
 	}
-	render_map(var->map, var->env, var->env->img.player_d, var->p_pos);
 }
 
 void	handle_right_move(t_var *var, int *move)
 {
 	if (var->map[var->p_pos->y][var->p_pos->x + 1] != '1'
-		&& ((var->map[var->p_pos->y][var->p_pos->x + 1] == 'E'
-				&& check_collect(var->map))
-			|| (var->map[var->p_pos->y][var->p_pos->x] == 'E')))
+		&& ((var->map[var->p_pos->y][var->p_pos->x] == 'E'
+				&& check_collect(var->map))))
 	{
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.door, var->p_pos->x * 32, var->p_pos->y * 32);
 		var->p_pos->x = var->p_pos->x + 1;
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.player_r, var->p_pos->x * 32, var->p_pos->y * 32);
 		(*move)++;
-		ft_printf("%d moves\n", *move);
 	}
+	else if (var->map[var->p_pos->y][var->p_pos->x + 1] != '1'
+		&& var->map[var->p_pos->y][var->p_pos->x + 1] == 'E'
+				&& !check_collect(var->map))
+		{
+			ft_printf("congrats You win !\ngame closing\n");
+		destroy_images(var->env, 1);
+		free2d(var->map);
+		exit(0);
+		}
 	else if (var->map[var->p_pos->y][var->p_pos->x + 1] != '1')
 	{
-		var->p_pos->x = var->p_pos->x + 1;
 		var->map[var->p_pos->y][var->p_pos->x] = '0';
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.floor, var->p_pos->x * 32, (var->p_pos->y) * 32);
+		var->p_pos->x = var->p_pos->x + 1;
+		if (var->map[var->p_pos->y][var->p_pos->x] != 'E')
+		{
+			mlx_put_image_to_window(var->env->mlx, var->env->win,
+				var->env->img.floor, var->p_pos->x * 32, (var->p_pos->y) * 32);
+			var->map[var->p_pos->y][var->p_pos->x] = '0';
+		}
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.player_r, var->p_pos->x * 32, (var->p_pos->y) * 32);
 		(*move)++;
-		ft_printf("%d move\n", *move);
 	}
-	render_map(var->map, var->env, var->env->img.player_r, var->p_pos);
 }
 
 void	handle_up_move(t_var *var, int *move)
 {
 	if (var->map[var->p_pos->y - 1][var->p_pos->x] != '1'
-		&& ((var->map[var->p_pos->y - 1][var->p_pos->x] == 'E'
-				&& check_collect(var->map))
-			|| (var->map[var->p_pos->y][var->p_pos->x] == 'E')))
+		&& ((var->map[var->p_pos->y][var->p_pos->x] == 'E'
+				&& check_collect(var->map))))
 	{
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.door, var->p_pos->x * 32, var->p_pos->y * 32);
 		var->p_pos->y = var->p_pos->y - 1;
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.player_u, var->p_pos->x * 32, var->p_pos->y * 32);
 		(*move)++;
-		ft_printf("%d move\n", *move);
 	}
+	else if (var->map[var->p_pos->y - 1][var->p_pos->x] != '1'
+		&& var->map[var->p_pos->y - 1][var->p_pos->x] == 'E'
+				&& !check_collect(var->map))
+		{
+			ft_printf("congrats You win !\ngame closing\n");
+		destroy_images(var->env, 1);
+		free2d(var->map);
+		exit(0);
+		}
 	else if (var->map[var->p_pos->y - 1][var->p_pos->x] != '1')
 	{
-		var->p_pos->y = var->p_pos->y - 1;
 		var->map[var->p_pos->y][var->p_pos->x] = '0';
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.floor, var->p_pos->x * 32, (var->p_pos->y) * 32);
+		var->p_pos->y = var->p_pos->y - 1;
+		if (var->map[var->p_pos->y][var->p_pos->x] != 'E')
+		{
+			mlx_put_image_to_window(var->env->mlx, var->env->win,
+				var->env->img.floor, var->p_pos->x * 32, (var->p_pos->y) * 32);
+			var->map[var->p_pos->y][var->p_pos->x] = '0';
+		}
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.player_u, var->p_pos->x * 32, (var->p_pos->y) * 32);
 		(*move)++;
-		ft_printf("%d move\n", *move);
 	}
-	render_map(var->map, var->env, var->env->img.player_u, var->p_pos);
 }
 
 void	handle_left_move(t_var *var, int *move)
 {
 	if (var->map[var->p_pos->y][var->p_pos->x - 1] != '1'
-		&& ((var->map[var->p_pos->y][var->p_pos->x - 1] == 'E'
-				&& check_collect(var->map))
-			|| var->map[var->p_pos->y][var->p_pos->x] == 'E'))
+		&& ((var->map[var->p_pos->y][var->p_pos->x] == 'E'
+				&& check_collect(var->map))))
 	{
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.door, var->p_pos->x * 32, var->p_pos->y * 32);
 		var->p_pos->x = var->p_pos->x - 1;
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.player_l, var->p_pos->x * 32, var->p_pos->y * 32);
 		(*move)++;
-		ft_printf("%d move\n", *move);
 	}
+	else if (var->map[var->p_pos->y][var->p_pos->x - 1] != '1'
+		&& var->map[var->p_pos->y][var->p_pos->x - 1] == 'E'
+				&& !check_collect(var->map))
+		{
+			ft_printf("congrats You win !\ngame closing\n");
+		destroy_images(var->env, 1);
+		free2d(var->map);
+		exit(0);
+		}
 	else if (var->map[var->p_pos->y][var->p_pos->x - 1] != '1')
 	{
-		var->p_pos->x = var->p_pos->x - 1;
 		var->map[var->p_pos->y][var->p_pos->x] = '0';
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.floor, var->p_pos->x * 32, (var->p_pos->y) * 32);
+		var->p_pos->x = var->p_pos->x - 1;
+		if (var->map[var->p_pos->y][var->p_pos->x] != 'E')
+		{
+			mlx_put_image_to_window(var->env->mlx, var->env->win,
+				var->env->img.floor, var->p_pos->x * 32, (var->p_pos->y) * 32);
+			var->map[var->p_pos->y][var->p_pos->x] = '0';
+		}
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.player_l, var->p_pos->x * 32, var->p_pos->y * 32);
 		(*move)++;
-		ft_printf("%d move\n", *move);
 	}
-	render_map(var->map, var->env, var->env->img.player_l, var->p_pos);
 }
-
+void change_door(t_var *var)
+{
+	t_point pos;
+	pos = item_postion(var->map, 'E');
+	mlx_put_image_to_window(var->env->mlx, var->env->win, var->env->img.opened_door, pos.x * 32, pos.y * 32);
+	if (check_winner(var->map) == 1)
+	{
+		ft_printf("congrats You win !\ngame closing\n");
+		destroy_images(var->env, 1);
+		free2d(var->map);
+		exit(0);
+	}
+}
 int	movment_handler(int keycode, t_var *var)
 {
 	static int	move;
@@ -114,6 +210,8 @@ int	movment_handler(int keycode, t_var *var)
 		handle_left_move(var, &move);
 	else if (keycode == 53)
 		closing_game(var);
+	if (!check_collect(var->map))
+		change_door(var);
 	str_move = ft_itoa(move);
 	str = ft_strjoin("moves : ", str_move);
 	build_counter_z(var);

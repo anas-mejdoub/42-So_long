@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:37:53 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/22 18:18:35 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:58:43 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	render_helper(t_var var, int i, int y, t_point point)
 			if (var.map[i][y] == 'X')
 			mlx_put_image_to_window(var.env->mlx, var.env->win,
 					var.env->img.enemy_right, point.x, point.y);
-				// render_enemy();
 			point.x += 32;
 			y++;
 		}

@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/23 12:30:20 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:55:52 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,29 +177,6 @@ int	check_c(t_coins_var *variable)
 	return (0);
 }
 
-// void render_enemy(t_coins_var *variable)
-// {
-// 	t_enemies *tmp = variable->enemies;
-
-// 	// int i = 0;
-// 	// int j;
-
-// 	// while (variable->var->map[i])
-// 	// {
-// 	// 	j = 0;
-// 	// 	while (variable->var->map[i][j])
-// 	// 	{
-// 	// 		if (variable->var->map[i][j] == 'X')
-// 	// 		{
-// 	// 			mlx_put_image_to_window(variable->var->env->mlx,
-					// variable->var->env->win,
-					// variable->var->env->img.enemy_right, j * 32, i * 32);
-// 	// 		}
-// 	// 		j++;
-// 	// 	}
-// 	// 	i++;
-// 	// }
-// }
 void	enemy_caller(t_coins_var *variable)
 {
 	static int	timer;
@@ -214,15 +191,14 @@ int	render_coins(t_coins_var *variable)
 {
 	static int	timer;
 	t_coins		*tmp;
-	void		*test;
+	void		*img;
 
 	timer++;
-	// ft_printf("%d\n", timer);
 	tmp = variable->coins;
 	enemy_caller(variable);
-	if (timer == 700)
+	if (timer == 1000)
 	{
-		test = ask_for_img(variable);
+		img = ask_for_img(variable);
 		while (variable->coins)
 		{
 			if (check_c(variable))
@@ -232,13 +208,13 @@ int	render_coins(t_coins_var *variable)
 					variable->coins->c_pos.x * 32, variable->coins->c_pos.y
 					* 32);
 				mlx_put_image_to_window(variable->var->env->mlx,
-					variable->var->env->win, test, variable->coins->c_pos.x
+					variable->var->env->win, img, variable->coins->c_pos.x
 					* 32, variable->coins->c_pos.y * 32);
 			}
 			variable->coins = variable->coins->next;
 		}
 	}
-	else if (timer > 700)
+	else if (timer > 1000)
 		timer = 0;
 	variable->coins = tmp;
 	return (1);
@@ -390,17 +366,11 @@ int	set_up_map(char **map)
 	intialcounter(&var);
 	fill_coins(&variable);
 	fill_enemies(&variable);
-	// while (variable.enemies)
-	// {
-	// 	ft_printf("%d %d \n", variable.enemies->e_pos.y,
-			//  variable.enemies->e_pos.x);
-	// 		variable.enemies =  variable.enemies->next;
-	// }
 	img_value(variable);
 	enemies_img_intial(variable);
 	render_map(map, &env, env.img.player_r, &p_pos);
 	mlx_loop_hook(env.mlx, render_coins, &variable);
-	mlx_hook(env.win, 2, 0, movment_handler, &var);
+	mlx_hook(env.win, 3, 0, movment_handler, &var);
 	mlx_hook(env.win, 17, 0, closing_game, &var);
 	mlx_loop(env.mlx);
 	return (0);
