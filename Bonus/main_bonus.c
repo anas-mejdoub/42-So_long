@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/23 19:17:18 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:29:33 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,8 @@ void	handle_enemy(t_coins_var *variable)
 			variable->enemies->e_pos = pos;
 			
 		}
+		if (pos.x == variable->var->p_pos->x && pos.y == variable->var->p_pos->y)
+			closing_game(variable->var);
 		variable->enemies = variable->enemies->next;
 	}
 	variable->enemies = tmp;
