@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/24 12:12:05 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:08:13 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,5 @@ void build_counter_z(t_var *var);
 int	closing_game(t_var *var);
 void handle_enemy(t_coins_var *variable);
 void render_enemy(t_coins_var *variable);
-t_point search_p(char **map, t_point enemy, t_point player);
+t_point search_p(t_coins_var *variable,  t_point enemy);
 #endif

@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/24 12:39:03 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:07:38 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ int	open_images(t_env *env, int *width, int *height, char **map)
 	env->img.door = mlx_xpm_file_to_image(env->mlx, "assetes/idle.xpm", width,
 			height);
 	env->img.player_r = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/naruto_right.xpm", width, height);
+			"assetes/player/sasuke_right_new32.xpm", width, height);
 	env->img.player_d = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/naruto_downrr.xpm", width, height);
+			"assetes/player/sasuke_new_down32.xpm", width, height);
 	env->img.player_u = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/naruto_upr.xpm", width, height);
+			"assetes/player/sasuke_up_new32.xpm", width, height);
 	env->img.player_l = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/naruto_left.xpm", width, height);
+			"assetes/player/sasuke_left_new.xpm", width, height);
 	if (!check_assets(env))
 		return (0);
 	return (1);
@@ -228,8 +228,7 @@ void	handle_enemy(t_coins_var *variable)
 	tmp = variable->enemies;
 	while (variable->enemies)
 	{
-		pos = search_p(variable->var->map, variable->enemies->e_pos,
-				*variable->var->p_pos);
+		pos = search_p(variable, variable->enemies->e_pos);
 		if (pos.x != variable->enemies->e_pos.x || pos.y != variable->enemies->e_pos.y)
 		{
 			mlx_put_image_to_window(variable->var->env->mlx,
@@ -270,13 +269,13 @@ int	check_enemy_assets(t_env *env)
 int	open_enemy(t_env *env, int *width, int *height)
 {
 	env->img.enemy_up = mlx_xpm_file_to_image(env->mlx,
-			"assetes/enemy/enemy_up.xpm", width, height);
+			"assetes/enemy/itachi_up.xpm", width, height);
 	env->img.enemy_down = mlx_xpm_file_to_image(env->mlx,
-			"assetes/enemy/enemy_down.xpm", width, height);
+			"assetes/enemy/itachi_down.xpm", width, height);
 	env->img.enemy_right = mlx_xpm_file_to_image(env->mlx,
-			"assetes/enemy/enemy_right.xpm", width, height);
+			"assetes/enemy/itachi_right.xpm", width, height);
 	env->img.enemy_left = mlx_xpm_file_to_image(env->mlx,
-			"assetes/enemy/enemy_left.xpm", width, height);
+			"assetes/enemy/itachi_left32.xpm", width, height);
 	if (!check_enemy_assets(env))
 		return (0);
 	return (1);
@@ -337,7 +336,7 @@ void	enemies_img_intial(t_coins_var variable)
 {
 	while (variable.enemies)
 	{
-		variable.enemies->img = variable.var->env->img.enemy_right;
+		variable.enemies->img = variable.var->env->img.enemy_down;
 		variable.enemies = variable.enemies->next;
 	}
 }

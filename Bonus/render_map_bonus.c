@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:37:53 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/24 12:09:59 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/24 15:48:02 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	render_helper(t_var var, int i, int y, t_point point)
 		y = 0;
 		while (var.map[i][y])
 		{
-	ft_printf("hh\n");
 			if (var.map[i][y] == '1')
 				build_outer_wall(var.map, (t_point){i, y}, (t_point){point.y,
 					point.x}, var.env);

@@ -6,41 +6,56 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:48:41 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/24 11:38:14 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/24 17:10:06 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-t_point	search_p(char **map, t_point enemy, t_point player)
+t_point	search_p(t_coins_var *variable, t_point enemy)
 {
-	if (player.y > enemy.y)
+	if (variable->var->p_pos->y > enemy.y)
 	{
-		if (map[enemy.y + 1][enemy.x] != '1' && map[enemy.y + 1][enemy.x] != 'C'
-			&& map[enemy.y + 1][enemy.x] != 'E' && map[enemy.y
+		if (variable->var->map[enemy.y + 1][enemy.x] != '1' && variable->var->map[enemy.y + 1][enemy.x] != 'C'
+			&& variable->var->map[enemy.y + 1][enemy.x] != 'E' && variable->var->map[enemy.y
 			+ 1][enemy.x] != 'X')
+			{
 			enemy.y++;
+			variable->enemies->img = variable->var->env->img.enemy_down;
+			}
 	}
-	else if (player.y < enemy.y)
+	else if (variable->var->p_pos->y < enemy.y)
 	{
-		if (map[enemy.y - 1][enemy.x] != '1' && map[enemy.y - 1][enemy.x] != 'C'
-			&& map[enemy.y - 1][enemy.x] != 'E' && map[enemy.y
+		if (variable->var->map[enemy.y - 1][enemy.x] != '1' && variable->var->map[enemy.y - 1][enemy.x] != 'C'
+			&& variable->var->map[enemy.y - 1][enemy.x] != 'E' && variable->var->map[enemy.y
 			- 1][enemy.x] != 'X')
+			{
 			enemy.y--;
+			variable->enemies->img = variable->var->env->img.enemy_up;
+				
+			}
 	}
-	else if (player.x > enemy.x)
+	else if (variable->var->p_pos->x > enemy.x)
 	{
-		if (map[enemy.y][enemy.x + 1] != '1' && map[enemy.y][enemy.x + 1] != 'C'
-			&& map[enemy.y][enemy.x + 1] != 'E' && map[enemy.y][enemy.x
+		if (variable->var->map[enemy.y][enemy.x + 1] != '1' && variable->var->map[enemy.y][enemy.x + 1] != 'C'
+			&& variable->var->map[enemy.y][enemy.x + 1] != 'E' && variable->var->map[enemy.y][enemy.x
 			+ 1] != 'X')
+			{
 			enemy.x++;
+			variable->enemies->img = variable->var->env->img.enemy_right;
+
+			}
 	}
-	else if (player.x < enemy.x)
+	else if (variable->var->p_pos->x < enemy.x)
 	{
-		if (map[enemy.y][enemy.x - 1] != '1' && map[enemy.y][enemy.x - 1] != 'C'
-			&& map[enemy.y][enemy.x - 1] != 'E' && map[enemy.y][enemy.x
+		if (variable->var->map[enemy.y][enemy.x - 1] != '1' && variable->var->map[enemy.y][enemy.x - 1] != 'C'
+			&& variable->var->map[enemy.y][enemy.x - 1] != 'E' && variable->var->map[enemy.y][enemy.x
 			- 1] != 'X')
+			{
 			enemy.x--;
+			variable->enemies->img = variable->var->env->img.enemy_left;
+
+			}
 	}
 	return (enemy);
 }
