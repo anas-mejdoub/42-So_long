@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/23 19:29:33 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:39:03 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	destroy_images(t_env *env, int n)
 int	open_images(t_env *env, int *width, int *height, char **map)
 {
 	env->win = mlx_new_window(env->mlx, get_map_width(map) * 32,
-			get_map_height(map) * 1.3 * 32, "so_long");
+			(get_map_height(map) + 1) * 32, "so_long");
 	env->img.outer_wall = mlx_xpm_file_to_image(env->mlx, "assetes/floor33.xpm",
 			width, height);
 	env->img.opened_door = mlx_xpm_file_to_image(env->mlx,
@@ -43,13 +43,13 @@ int	open_images(t_env *env, int *width, int *height, char **map)
 	env->img.door = mlx_xpm_file_to_image(env->mlx, "assetes/idle.xpm", width,
 			height);
 	env->img.player_r = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/right032.xpm", width, height);
+			"assetes/player/naruto_right.xpm", width, height);
 	env->img.player_d = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/down1_32.xpm", width, height);
+			"assetes/player/naruto_downrr.xpm", width, height);
 	env->img.player_u = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/up1_32.xpm", width, height);
+			"assetes/player/naruto_upr.xpm", width, height);
 	env->img.player_l = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/left032.xpm", width, height);
+			"assetes/player/naruto_left.xpm", width, height);
 	if (!check_assets(env))
 		return (0);
 	return (1);
@@ -182,9 +182,9 @@ void	enemy_caller(t_coins_var *variable)
 	static int	timer;
 
 	timer++;
-	if (timer == 5000)
+	if (timer == 7000)
 		handle_enemy(variable);
-	else if (timer > 5000)
+	else if (timer > 7000)
 		timer = 0;
 }
 int	render_coins(t_coins_var *variable)

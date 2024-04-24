@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/23 11:21:34 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:12:05 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_img
 	void	*coin5;
 	void	*floor_counter;
 	void	*upper_counter;
+	void	*naruto_up;
 	void	*enemy_up;
 	void	*enemy_right;
 	void	*enemy_left;

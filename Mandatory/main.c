@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/19 17:49:31 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:39:33 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ int	open_images(t_env *env, int *width, int *height, char **map)
 	env->img.coin = mlx_xpm_file_to_image(env->mlx, "assetes/coin.xpm", width,
 			height);
 	env->img.player_r = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/right032.xpm", width, height);
+			"assetes/player/naruto_right.xpm", width, height);
 	env->img.player_d = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/down1_32.xpm", width, height);
+			"assetes/player/naruto_downrr.xpm", width, height);
 	env->img.player_u = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/up1_32.xpm", width, height);
+			"assetes/player/naruto_upr.xpm", width, height);
 	env->img.player_l = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/left032.xpm", width, height);
+			"assetes/player/naruto_left.xpm", width, height);
 	if (!check_assets(env))
 		return (0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 18:52:19 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/21 17:22:36 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:03:45 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	intialcounter(t_var *var)
 
 	build_counter_z(var);
 	marge = (get_map_height(var->map) * 1.3 * 32) - (1.3 * 32);
-	mlx_string_put(var->env->mlx, var->env->win, 0, marge, 0xf58d42,
+	mlx_string_put(var->env->mlx, var->env->win, 0, get_map_height(var->map) * 32, 0xf58d42,
 		"moves : 0");
 }
 
@@ -35,7 +35,7 @@ void	build_counter_z(t_var *var)
 	height = get_map_height(var->map) * 32;
 	i = 0;
 	width = get_map_width(var->map) * 32;
-	while (y < more_height)
+	while (y < 32)
 	{
 		i = 0;
 		while (i < width)
