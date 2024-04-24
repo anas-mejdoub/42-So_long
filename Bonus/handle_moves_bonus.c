@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/24 12:13:54 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:18:34 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	handel_down_move(t_var *var, int *move)
 	else
 	{
 		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
 			var->env->img.player_d, var->p_pos->x * 32, var->p_pos->y * 32);
 	}
 }
@@ -111,6 +113,8 @@ void	handle_right_move(t_var *var, int *move)
 	}
 	else
 	{
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
 		mlx_put_image_to_window(var->env->mlx, var->env->win,
 			var->env->img.player_r, var->p_pos->x * 32, var->p_pos->y * 32);
 	}
@@ -165,6 +169,8 @@ void	handle_up_move(t_var *var, int *move)
 	else
 	{
 		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
 			var->env->img.player_u, var->p_pos->x * 32, var->p_pos->y * 32);
 	}
 }
@@ -216,6 +222,8 @@ void	handle_left_move(t_var *var, int *move)
 	}
 	else
 	{
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
 		mlx_put_image_to_window(var->env->mlx, var->env->win,
 			var->env->img.player_l, var->p_pos->x * 32, var->p_pos->y * 32);
 	}

@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/24 17:07:38 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:27:20 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,7 +386,7 @@ int	main(int argc, char *argv[])
 {
 	char	**map;
 
-	atexit(check_leaks);
+	// atexit(check_leaks);
 	if (argc == 1)
 		return (0);
 	map = map_parsing(argv[1]);

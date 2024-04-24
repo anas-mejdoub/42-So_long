@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:48:41 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/24 17:10:06 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:27:10 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ t_point	search_p(t_coins_var *variable, t_point enemy)
 			{
 			enemy.x++;
 			variable->enemies->img = variable->var->env->img.enemy_right;
-
 			}
 	}
 	else if (variable->var->p_pos->x < enemy.x)
