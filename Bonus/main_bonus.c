@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/25 13:00:14 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:24:17 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,17 @@ int	open_images(t_env *env, int *width, int *height, char **map)
 	env->img.door = mlx_xpm_file_to_image(env->mlx, "assetes/idle.xpm", width,
 			height);
 	env->img.player_r = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/sasuke_right_new32.xpm", width, height);
+			"assetes/player/naruto_right.xpm", width, height);
 	env->img.player_d = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/sasuke_new_down32.xpm", width, height);
+			"assetes/player/naruto_downrr.xpm", width, height);
 	env->img.player_u = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/sasuke_up_new32.xpm", width, height);
+			"assetes/player/naruto_upr.xpm", width, height);
 	env->img.player_l = mlx_xpm_file_to_image(env->mlx,
-			"assetes/player/sasuke_left_new.xpm", width, height);
+			"assetes/player/naruto_left.xpm", width, height);
+	env->img.sprint_right = mlx_xpm_file_to_image(env->mlx,
+			"assetes/player/naruto_sprint_right.xpm", width, height);
 	if (!check_assets(env))
-	{
-		ft_printf("images\n");
 		return (0);
-	}
 	return (1);
 }
 
@@ -236,16 +235,19 @@ void	handle_enemy(t_coins_var *variable)
 		if (pos.x != variable->enemies->e_pos.x || pos.y != variable->enemies->e_pos.y)
 		{
 			mlx_put_image_to_window(variable->var->env->mlx,
-				variable->var->env->win, variable->enemies->img,
-				pos.x * 32, pos.y * 32);
-			mlx_put_image_to_window(variable->var->env->mlx,
 				variable->var->env->win, variable->var->env->img.floor,
 				variable->enemies->e_pos.x * 32, variable->enemies->e_pos.y * 32);
 			variable->var->map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] = '0';
-			variable->var->map[pos.y][pos.x] = 'X';
-			variable->enemies->e_pos = pos;
-			
+			variable->enemies->e_pos.x = pos.x;
+			variable->enemies->e_pos.y = pos.y;
+			mlx_put_image_to_window(variable->var->env->mlx,
+				variable->var->env->win, variable->enemies->img,
+				variable->enemies->e_pos.x * 32, variable->enemies->e_pos.y * 32);
+			variable->var->map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] = 'X';
+			variable->enemies->e_pos = pos;		
 		}
+		variable->enemies->e_pos.x = pos.x;
+		variable->enemies->e_pos.y = pos.y;
 		if (pos.x == variable->var->p_pos->x && pos.y == variable->var->p_pos->y)
 			closing_game(variable->var);
 		variable->enemies = variable->enemies->next;

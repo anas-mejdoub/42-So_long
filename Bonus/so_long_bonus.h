@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/25 12:23:00 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:04:13 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ typedef struct s_img
 	void	*enemy_right;
 	void	*enemy_left;
 	void	*enemy_down;
+	void	*sprint_right;
+	void	*sprint_left;
 }			t_img;
 
 typedef struct s_env
