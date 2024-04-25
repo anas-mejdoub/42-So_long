@@ -1,5 +1,5 @@
 SRCS = main.c parsing.c flood_fill.c render_map.c \
-so_long_utils.c handle_moves.c check_errs.c parse_utils.c
+so_long_utils.c handle_moves.c check_errs.c parse_utils.c check_extens.c
 OBJBS = $(SRCS:.c=.o)
 NAME = ../so_long
 CC = cc

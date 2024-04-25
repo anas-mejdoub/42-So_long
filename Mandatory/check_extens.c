@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   check_extens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 09:46:39 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/25 12:13:23 by amejdoub         ###   ########.fr       */
+/*   Created: 2024/04/25 12:26:31 by amejdoub          #+#    #+#             */
+/*   Updated: 2024/04/25 12:26:54 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "so_long.h"
 
-char	*ft_strrchr(const char *str, int c)
+int check_extension(char *filename)
 {
-	int		len;
+    char *extension = ft_strrchr(filename, '.');
+    if (!ft_strncmp(extension, ".ber", 5))
+        return (1);
+    return (0);
+}
 
-	len = ft_strlen(str);
-	while (len >= 0 && str[len] != (char)c)
-		len--;
-	if (len < 0 && (char)c != '\0')
-		return (NULL);
-	return ((char *)str + len);
+void printf_err()
+{
+    write(2, "invalid map !\n", 15);
+	exit(1);
 }

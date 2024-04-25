@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/22 16:25:22 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:27:31 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int			get_map_height(char **map);
 int			get_map_width(char **map);
 void		remove_nl(char **map);
 int			check_wall_helper(int i, int j, int last, char **map);
+int check_extension(char *filename);
+void printf_err();
 typedef struct s_point
 {
 	int		y;

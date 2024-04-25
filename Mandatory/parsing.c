@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:41:41 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/22 16:26:43 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:28:27 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,17 +96,20 @@ char	**map_parsing(char *file_name)
 
 	fd = open(file_name, O_RDONLY);
 	map = NULL;
-	if (fd == -1)
-	{
-		write(2, "Error\n", 6);
-		exit(1);
-	}
+	if (fd == -1 || !check_extension(file_name))
+		printf_err();
 	str = get_next_line(fd);
+	if (!str)
+	{
+		close(fd);
+		printf_err();
+	}
 	while (str)
 	{
 		map = add_str(map, str);
 		str = get_next_line(fd);
 	}
+	
 	remove_nl(map);
 	if (!check_map_error(map))
 		return (close(fd), free2d(map), NULL);
