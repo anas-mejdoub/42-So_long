@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/24 18:27:20 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/25 13:00:14 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ int	open_images(t_env *env, int *width, int *height, char **map)
 	env->img.player_l = mlx_xpm_file_to_image(env->mlx,
 			"assetes/player/sasuke_left_new.xpm", width, height);
 	if (!check_assets(env))
+	{
+		ft_printf("images\n");
 		return (0);
+	}
 	return (1);
 }
 
@@ -82,6 +85,7 @@ int	open_coins(t_env *env, int *width, int *height)
 			"assetes/upper_counter.xpm", width, height);
 	if (!check_coins_assetes(env))
 	{
+		ft_printf("coins\n");
 		return (0);
 	}
 	return (1);
