@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/25 16:15:54 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/26 11:33:07 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,6 @@ void	handle_right_move(t_var *var, int *move)
 		}
 		mlx_put_image_to_window(var->env->mlx, var->env->win,
 			var->env->img.sprint_right, var->p_pos->x * 32, var->p_pos->y * 32);
-		// mlx_put_image_to_window(var->env->mlx, var->env->win,
-		// 	var->env->img.player_r, var->p_pos->x * 32, (var->p_pos->y) * 32);
 		(*move)++;
 	}
 	else
@@ -230,7 +228,7 @@ void	handle_left_move(t_var *var, int *move)
 			var->map[var->p_pos->y][var->p_pos->x] = '0';
 		}
 		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.player_l, var->p_pos->x * 32, var->p_pos->y * 32);
+			var->env->img.sprint_left, var->p_pos->x * 32, var->p_pos->y * 32);
 		(*move)++;
 	}
 	else

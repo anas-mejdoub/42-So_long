@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/25 17:24:17 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/26 11:16:35 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	open_images(t_env *env, int *width, int *height, char **map)
 			"assetes/player/naruto_left.xpm", width, height);
 	env->img.sprint_right = mlx_xpm_file_to_image(env->mlx,
 			"assetes/player/naruto_sprint_right.xpm", width, height);
+	env->img.sprint_left = mlx_xpm_file_to_image(env->mlx,
+			"assetes/player/naruto_sprint_left.xpm", width, height);
 	if (!check_assets(env))
 		return (0);
 	return (1);
