@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/26 11:33:07 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/26 11:53:00 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	handel_down_move(t_var *var, int *move)
 			var->env->img.player_d, var->p_pos->x * 32, var->p_pos->y * 32);
 	}
 }
+
 // right move !!!!!!!!!!!
 void	handle_right_move(t_var *var, int *move)
 {
@@ -130,7 +131,6 @@ void	handle_right_move(t_var *var, int *move)
 
 void	handle_up_move(t_var *var, int *move)
 {
-
 	if (var->map[var->p_pos->y - 1][var->p_pos->x] == 'X')
 		closing_game(var);
 	if (var->map[var->p_pos->y - 1][var->p_pos->x] != '1'
@@ -242,6 +242,7 @@ void	handle_left_move(t_var *var, int *move)
 			var->env->img.player_l, var->p_pos->x * 32, var->p_pos->y * 32);
 	}
 }
+
 void	change_door(t_var *var)
 {
 	t_point	pos;
@@ -257,6 +258,7 @@ void	change_door(t_var *var)
 		exit(0);
 	}
 }
+
 int	movment_handler(int keycode, t_var *var)
 {
 	static int	move;

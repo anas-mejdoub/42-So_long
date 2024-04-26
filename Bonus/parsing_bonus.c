@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:41:41 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/25 12:23:59 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/26 11:51:39 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ char	**dup2d(char **map)
 int	check_map_error(char **map)
 {
 	if (check_exit(map) && check_position(map) && check_walls(map)
-		&& check_collect(map) && check_rectangular(map)
-		&& floodfill(dup2d(map)) && check_execp(map))
+		&& check_collect(map) && check_rectangular(map) && floodfill(dup2d(map))
+		&& check_execp(map))
 		return (1);
 	return (0);
 }
@@ -109,7 +109,6 @@ char	**map_parsing(char *file_name)
 		map = add_str(map, str);
 		str = get_next_line(fd);
 	}
-	
 	remove_nl(map);
 	if (!check_map_error(map))
 		return (close(fd), free2d(map), NULL);

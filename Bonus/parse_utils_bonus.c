@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:57:29 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/22 16:22:26 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/26 11:52:03 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ int	check_execp(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] != 'C' && map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'P' && map[i][j] != 'E' && map[i][j] != 'X')
+			if (map[i][j] != 'C' && map[i][j] != '1' && map[i][j] != '0'
+				&& map[i][j] != 'P' && map[i][j] != 'E' && map[i][j] != 'X')
 				return (0);
 			j++;
 		}
