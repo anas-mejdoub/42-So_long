@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/26 11:51:21 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/26 18:45:28 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,18 @@ typedef struct s_coins
 	struct s_coins		*next;
 }						t_coins;
 
+enum 
+{
+	GAME_START = 0,
+	GAME_IN = 1,
+	GAME_END = 2,
+};
 typedef struct s_var
 {
 	char				**map;
 	t_env				*env;
 	t_point				*p_pos;
+	int					game_state;
 }						t_var;
 
 typedef struct s_enemies
@@ -125,6 +132,6 @@ void					intialcounter(t_var *var);
 void					build_counter_z(t_var *var);
 int						closing_game(t_var *var);
 void					handle_enemy(t_coins_var *variable);
-void					render_enemy(t_coins_var *variable);
+// void					render_enemy(t_coins_var *variable);
 t_point					search_p(t_coins_var *variable, t_point enemy);
 #endif

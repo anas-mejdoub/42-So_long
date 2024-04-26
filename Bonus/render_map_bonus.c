@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:37:53 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/25 17:47:02 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/26 19:59:11 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	render_map(char **map, t_env *env, void *player_dir, t_point *p_pos)
 		free2d(map);
 		exit(0);
 	}
-	render_helper((t_var){map, env, p_pos}, 0, 0, (t_point){0, 0});
+	render_helper((t_var){map, env, p_pos, 1}, 0, 0, (t_point){0, 0});
 	if (map[p_pos->y][p_pos->x] == 'C')
 		map[p_pos->y][p_pos->x] = '0';
 	mlx_put_image_to_window(env->mlx, env->win, player_dir, p_pos->x * 32,
@@ -41,7 +41,7 @@ void	render_helper(t_var var, int i, int y, t_point point)
 				build_outer_wall(var.map, (t_point){i, y}, (t_point){point.y,
 					point.x}, var.env);
 			if (var.map[i][y] == '0' || var.map[i][y] == 'P'
-				|| var.map[i][y] == 'E' || var.map[i][y] == 'X')
+				|| var.map[i][y] == 'E' || var.map[i][y] == 'X' || var.map[i][y] == 'C')
 				mlx_put_image_to_window(var.env->mlx, var.env->win,
 					var.env->img.floor, point.x, point.y);
 			if (var.map[i][y] == 'E')
@@ -49,6 +49,9 @@ void	render_helper(t_var var, int i, int y, t_point point)
 			if (var.map[i][y] == 'X')
 				mlx_put_image_to_window(var.env->mlx, var.env->win,
 					var.env->img.enemy_right, point.x, point.y);
+			if (var.map[i][y] == 'C')
+				mlx_put_image_to_window(var.env->mlx, var.env->win,
+					var.env->img.coin, point.x + 7, point.y + 7);
 			point.x += 32;
 			y++;
 		}

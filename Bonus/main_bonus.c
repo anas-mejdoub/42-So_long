@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/26 11:16:35 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/26 19:56:15 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,26 @@ int	open_coins(t_env *env, int *width, int *height)
 	return (1);
 }
 
-int	closing_game(t_var *var)
+int closing_game(t_var *var)
 {
-	destroy_images(var->env, check_winner(var->map));
+	int width;
+	int height;
+	void *game_over = mlx_xpm_file_to_image(var->env->mlx, "assetes/game_over/game_over_white.xpm", &width, &height);
+	if (game_over == NULL)
+    {
+        ft_printf("Failed to load game over image\n");
+        exit(1);
+    }
+	ft_printf("%d %d \n", height, width);
+	int x = (get_map_width(var->map) * 32) / 2;
+	int y = (get_map_height(var->map) * 32) / 2;
+	y = y - (441 / 2);
+	x = x - (566 / 2);
+	mlx_clear_window(var->env->mlx, var->env->win);
+	mlx_put_image_to_window(var->env->mlx, var->env->win, game_over, x, y);
+	mlx_loop(var->env->mlx);
 	ft_printf("You lost ! hehe\n");
+	
 	free2d(var->map);
 	exit(0);
 }
@@ -197,31 +213,35 @@ int	render_coins(t_coins_var *variable)
 	static int	timer;
 	t_coins		*tmp;
 	void		*img;
-
-	timer++;
-	tmp = variable->coins;
-	enemy_caller(variable);
-	if (timer == 1000)
+	if (variable->var->game_state != GAME_END)
 	{
-		img = ask_for_img(variable);
-		while (variable->coins)
+		timer++;
+		tmp = variable->coins;
+		enemy_caller(variable);
+		if (timer == 1000)
 		{
-			if (check_c(variable))
+			img = ask_for_img(variable);
+			while (variable->coins)
 			{
-				mlx_put_image_to_window(variable->var->env->mlx,
-					variable->var->env->win, variable->var->env->img.floor,
-					variable->coins->c_pos.x * 32, variable->coins->c_pos.y
-					* 32);
-				mlx_put_image_to_window(variable->var->env->mlx,
-					variable->var->env->win, img, variable->coins->c_pos.x
-					* 32, variable->coins->c_pos.y * 32);
+				if (check_c(variable))
+				{
+					mlx_put_image_to_window(variable->var->env->mlx,
+						variable->var->env->win, variable->var->env->img.floor,
+						variable->coins->c_pos.x * 32, variable->coins->c_pos.y
+						* 32);
+					mlx_put_image_to_window(variable->var->env->mlx,
+						variable->var->env->win, img, variable->coins->c_pos.x
+						* 32 + 7, variable->coins->c_pos.y * 32 + 7);
+				}
+				variable->coins = variable->coins->next;
 			}
-			variable->coins = variable->coins->next;
 		}
+		else if (timer > 1000)
+			timer = 0;
+		variable->coins = tmp;
 	}
-	else if (timer > 1000)
-		timer = 0;
-	variable->coins = tmp;
+	else if (variable->var->game_state == GAME_END)
+		closing_game(variable->var);
 	return (1);
 }
 
@@ -229,7 +249,6 @@ void	handle_enemy(t_coins_var *variable)
 {
 	t_point		pos;
 	t_enemies	*tmp;
-	
 	tmp = variable->enemies;
 	while (variable->enemies)
 	{
@@ -251,7 +270,8 @@ void	handle_enemy(t_coins_var *variable)
 		variable->enemies->e_pos.x = pos.x;
 		variable->enemies->e_pos.y = pos.y;
 		if (pos.x == variable->var->p_pos->x && pos.y == variable->var->p_pos->y)
-			closing_game(variable->var);
+			variable->var->game_state++;
+			// closing_game(variable->var);
 		variable->enemies = variable->enemies->next;
 	}
 	variable->enemies = tmp;
@@ -376,12 +396,14 @@ int	set_up_map(char **map)
 	fill_coins(&variable);
 	fill_enemies(&variable);
 	img_value(variable);
+	var.game_state = 1;
 	enemies_img_intial(variable);
 	render_map(map, &env, env.img.player_r, &p_pos);
 	mlx_loop_hook(env.mlx, render_coins, &variable);
 	mlx_hook(env.win, 3, 0, movment_handler, &var);
 	mlx_hook(env.win, 17, 0, closing_game, &var);
 	mlx_loop(env.mlx);
+	// exit(1);
 	return (0);
 }
 

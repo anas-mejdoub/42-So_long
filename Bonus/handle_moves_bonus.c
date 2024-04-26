@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/26 11:53:00 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/26 19:25:06 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	handel_down_move(t_var *var, int *move)
 {
 	if (var->map[var->p_pos->y + 1][var->p_pos->x] == 'X')
-		closing_game(var);
+		var->game_state++;
 	if (var->map[var->p_pos->y + 1][var->p_pos->x] != '1'
 		&& ((var->map[var->p_pos->y][var->p_pos->x] == 'E'
 				&& check_collect(var->map))))
@@ -73,7 +73,7 @@ void	handel_down_move(t_var *var, int *move)
 void	handle_right_move(t_var *var, int *move)
 {
 	if (var->map[var->p_pos->y][var->p_pos->x + 1] == 'X')
-		closing_game(var);
+		var->game_state++;
 	if (var->map[var->p_pos->y][var->p_pos->x + 1] != '1'
 		&& ((var->map[var->p_pos->y][var->p_pos->x] == 'E'
 				&& check_collect(var->map))))
@@ -132,7 +132,7 @@ void	handle_right_move(t_var *var, int *move)
 void	handle_up_move(t_var *var, int *move)
 {
 	if (var->map[var->p_pos->y - 1][var->p_pos->x] == 'X')
-		closing_game(var);
+		var->game_state++;
 	if (var->map[var->p_pos->y - 1][var->p_pos->x] != '1'
 		&& ((var->map[var->p_pos->y][var->p_pos->x] == 'E'
 				&& check_collect(var->map))))
@@ -189,7 +189,7 @@ void	handle_up_move(t_var *var, int *move)
 void	handle_left_move(t_var *var, int *move)
 {
 	if (var->map[var->p_pos->y][var->p_pos->x - 1] == 'X')
-		closing_game(var);
+		var->game_state++;
 	else if (var->map[var->p_pos->y][var->p_pos->x - 1] != '1'
 		&& ((var->map[var->p_pos->y][var->p_pos->x] == 'E'
 				&& check_collect(var->map))))
@@ -264,7 +264,18 @@ int	movment_handler(int keycode, t_var *var)
 	static int	move;
 	char		*str_move;
 	char		*str;
-
+	
+	if (var->game_state == GAME_END)
+	{
+		if (keycode == 36)
+		{
+			destroy_images(var->env, check_winner(var->map));
+			exit (0);
+			// mlx_destroy_image(var->env->mlx, var->env->win)
+		}
+		return 0;
+			// ft_printf("enter\n");
+	}
 	if (keycode == 1 || keycode == 125)
 		handel_down_move(var, &move);
 	else if (keycode == 2 || keycode == 124)
@@ -274,7 +285,8 @@ int	movment_handler(int keycode, t_var *var)
 	else if (keycode == 0 || keycode == 123)
 		handle_left_move(var, &move);
 	else if (keycode == 53)
-		closing_game(var);
+		var->game_state++;
+		// closing_game(var);
 	if (!check_collect(var->map))
 		change_door(var);
 	str_move = ft_itoa(move);
@@ -286,3 +298,47 @@ int	movment_handler(int keycode, t_var *var)
 	free(str);
 	return (1);
 }
+
+
+/*
+
+	enum {
+		GAME_START = 0,
+		GAME_IN = 1,
+		GAME_END = 2,
+	}
+
+	int game_state = 0;
+	game_loop_hook
+	{
+		if (game_state == GAME_START)
+			render_game_menu();
+		else if (game_stat == GAME_IN)
+			render_game_stuff();
+			if (enemy touches me) 
+				game_state++;
+		else {
+			mlx_clear_window();
+			render_game_over();
+		}
+	}
+	
+	key_handler 
+	{
+		if (game_state == GAME_START)
+			if (key_pressed == "Enter")
+				game_state++;
+		else if (game_state == GAME_IN)
+			if (i touch enemy)
+				game_state++;
+		else {
+			if (key_pressed == "Enter")
+				destroy_everything();
+		}
+	}
+	
+	render_game_over() {
+		mlx_put_image_to_window(&img, SCREEN_H, SCREEN_W);
+	}
+
+*/
