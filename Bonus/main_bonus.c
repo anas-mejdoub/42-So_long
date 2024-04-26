@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/26 21:34:58 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/26 21:45:39 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,20 +102,18 @@ int closing_game(t_var *var)
         ft_printf("Failed to load game over image\n");
         exit(1);
     }
-	// ft_printf("%d %d \n", height, width);
 	if (get_map_height(var->map) >= 5 && get_map_width(var->map) > 18)
 	{
 		
 	int x = (get_map_width(var->map) * 32) / 2;
 	int y = (get_map_height(var->map) * 32) / 2;
-	y = y - (441 / 2);
+	y = y - (355 / 2);
 	x = x - (566 / 2);
 	mlx_clear_window(var->env->mlx, var->env->win);
 	mlx_put_image_to_window(var->env->mlx, var->env->win, game_over, x, y);
 	mlx_loop(var->env->mlx);
 	}
 	ft_printf("You lost ! hehe\n");
-	
 	free2d(var->map);
 	exit(0);
 }
