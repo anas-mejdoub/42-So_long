@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/27 17:26:04 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/27 20:38:48 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,25 +103,33 @@ int closing_game(t_var *var)
 	y = (get_map_height(var->map) * 32) / 2;
 	if (var->win == WIN)
 	{
-		if (get_map_width(var->map) > 30)
+		if (get_map_width(var->map) > 50)
 		{
 			y = y - (1839 / 2);
 			x = x - (1300 / 2);
 			img =  mlx_xpm_file_to_image(var->env->mlx, "assetes/win/resized_win.xpm", &width, &height);
 		}
-		else if (get_map_width(var->map) < 17)
+		else if (get_map_width(var->map) < 50)
 		{
-			y = y - (355 / 2);
-			x = x - (566 / 2);
+			y = y - (218 / 2);
+			x = x - (415 / 2);
 			img =  mlx_xpm_file_to_image(var->env->mlx, "assetes/win/you_win.xpm", &width, &height);
 		}
 	}
 	else if (var->win == LOSE)
 	{
-		ft_printf("lost");
-	y = y - (355 / 2);
-	x = x - (566 / 2);
-		img = mlx_xpm_file_to_image(var->env->mlx, "assetes/game_over/game_over_white.xpm", &width, &height);
+		if (get_map_height(var->map) > 5)
+		{
+			y = y - (410 / 2);
+			x = x - (565 / 2);
+			img = mlx_xpm_file_to_image(var->env->mlx, "assetes/game_over/uchiha_win.xpm", &width, &height);
+		}
+		else
+		{
+			y = y - (350 / 2);
+			x = x - (565 / 2);
+			img =  mlx_xpm_file_to_image(var->env->mlx, "assetes/game_over/game_over_white.xpm", &width, &height);
+		}
 	}
 	if (img == NULL)
     {
@@ -130,10 +138,9 @@ int closing_game(t_var *var)
     }
 	if (get_map_height(var->map) >= 5 && get_map_width(var->map) > 18)
 	{
-		
-	mlx_clear_window(var->env->mlx, var->env->win);
-	mlx_put_image_to_window(var->env->mlx, var->env->win, img, x, y);
-	mlx_loop(var->env->mlx);
+		mlx_clear_window(var->env->mlx, var->env->win);
+		mlx_put_image_to_window(var->env->mlx, var->env->win, img, x, y);
+		mlx_loop(var->env->mlx);
 	}
 	ft_printf("You lost ! hehe\n");
 	free2d(var->map);

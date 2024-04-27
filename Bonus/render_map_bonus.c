@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:37:53 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/26 19:59:11 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/27 17:32:29 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	render_map(char **map, t_env *env, void *player_dir, t_point *p_pos)
 		free2d(map);
 		exit(0);
 	}
-	render_helper((t_var){map, env, p_pos, 1}, 0, 0, (t_point){0, 0});
+	render_helper((t_var){map, env, p_pos, 1, LOSE}, 0, 0, (t_point){0, 0});
 	if (map[p_pos->y][p_pos->x] == 'C')
 		map[p_pos->y][p_pos->x] = '0';
 	mlx_put_image_to_window(env->mlx, env->win, player_dir, p_pos->x * 32,
