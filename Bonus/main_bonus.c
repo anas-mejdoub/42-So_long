@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/27 20:38:48 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/27 21:08:38 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,16 +124,16 @@ int closing_game(t_var *var)
 			x = x - (565 / 2);
 			img = mlx_xpm_file_to_image(var->env->mlx, "assetes/game_over/uchiha_win.xpm", &width, &height);
 		}
-		else
+		else if (get_map_height(var->map) == 5)
 		{
-			y = y - (350 / 2);
-			x = x - (565 / 2);
-			img =  mlx_xpm_file_to_image(var->env->mlx, "assetes/game_over/game_over_white.xpm", &width, &height);
+			y = y - (214 / 2);
+			x = x - (496 / 2);
+			img =  mlx_xpm_file_to_image(var->env->mlx, "assetes/game_over/uchiha_win_mini.xpm", &width, &height);
 		}
 	}
 	if (img == NULL)
     {
-        ft_printf("Failed to load game over image\n");
+		destroy_images(var->env, check_winner(var->map));
         exit(1);
     }
 	if (get_map_height(var->map) >= 5 && get_map_width(var->map) > 18)
@@ -142,7 +142,7 @@ int closing_game(t_var *var)
 		mlx_put_image_to_window(var->env->mlx, var->env->win, img, x, y);
 		mlx_loop(var->env->mlx);
 	}
-	ft_printf("You lost ! hehe\n");
+	ft_printf("You Lost !\n");
 	free2d(var->map);
 	exit(0);
 }
