@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/27 21:08:38 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/27 22:51:36 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,9 +244,14 @@ int	render_coins(t_coins_var *variable)
 	static int	timer;
 	t_coins		*tmp;
 	void		*img;
-	if (variable->var->game_state != GAME_END)
+	static int render_caller;
+
+	if (variable->var->game_state == GAME_IN)
 	{
 		timer++;
+		render_caller++;
+		if (render_caller == 1)
+			render_map(variable);
 		tmp = variable->coins;
 		enemy_caller(variable);
 		if (timer == 1000)
@@ -431,21 +436,20 @@ int	set_up_map(char **map)
 	}
 	var.env = &env;
 	var.win = LOSE;
+	var.game_state = GAME_START;
 	variable.var = &var;
 	variable.coins = NULL;
 	variable.enemies = NULL;
-	intialcounter(&var);
+	mlx_hook(env.win, 3, 0, movment_handler, &var);
+	// intialcounter(&var);
 	fill_coins(&variable);
 	fill_enemies(&variable);
 	img_value(variable);
-	var.game_state = 1;
 	enemies_img_intial(variable);
-	render_map(map, &env, env.img.player_r, &p_pos);
+	// render_map(map, &env, env.img.player_r, &p_pos);
 	mlx_loop_hook(env.mlx, render_coins, &variable);
-	mlx_hook(env.win, 3, 0, movment_handler, &var);
 	mlx_hook(env.win, 17, 0, closing_game, &var);
 	mlx_loop(env.mlx);
-	// exit(1);
 	return (0);
 }
 

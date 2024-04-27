@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/27 14:43:35 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/27 21:39:49 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,7 @@ typedef struct s_coins_var
 	t_var				*var;
 }						t_coins_var;
 int						check_collect(char **map);
-int						render_map(char **map, t_env *env, void *player_dir,
-							t_point *p_pos);
+int						render_map(t_coins_var *variable);
 void					handle_right_move(t_var *var, int *move);
 void					handel_down_move(t_var *var, int *move);
 void					handle_right_move(t_var *var, int *move);

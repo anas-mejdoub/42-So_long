@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/27 16:32:25 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/27 22:50:22 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,12 @@ int	movment_handler(int keycode, t_var *var)
 			exit (0);
 		}
 		return 0;
+	}
+	if (var->game_state == GAME_START)
+	{
+		if (keycode == 36)
+			var->game_state++;
+		return (0);
 	}
 	if (keycode == 1 || keycode == 125)
 		handel_down_move(var, &move);
