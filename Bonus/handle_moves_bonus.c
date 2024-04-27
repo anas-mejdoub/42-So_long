@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/26 19:25:06 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/27 16:32:25 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,9 @@ void	handel_down_move(t_var *var, int *move)
 		&& var->map[var->p_pos->y + 1][var->p_pos->x] == 'E'
 		&& !check_collect(var->map))
 	{
+		var->game_state++;
+		var->win = WIN;
 		ft_printf("congrats You win !\ngame closing\n");
-		destroy_images(var->env, 1);
-		free2d(var->map);
-		exit(0);
 	}
 	else if (var->map[var->p_pos->y + 1][var->p_pos->x] != '1')
 	{
@@ -96,10 +95,12 @@ void	handle_right_move(t_var *var, int *move)
 		&& var->map[var->p_pos->y][var->p_pos->x + 1] == 'E'
 		&& !check_collect(var->map))
 	{
+		var->game_state++;
+		var->win = WIN;
 		ft_printf("congrats You won !\ngame closing\n");
-		destroy_images(var->env, 1);
-		free2d(var->map);
-		exit(0);
+		// destroy_images(var->env, 1);
+		// free2d(var->map);
+		// exit(0);
 	}
 	else if (var->map[var->p_pos->y][var->p_pos->x + 1] != '1')
 	{
@@ -153,10 +154,12 @@ void	handle_up_move(t_var *var, int *move)
 		&& var->map[var->p_pos->y - 1][var->p_pos->x] == 'E'
 		&& !check_collect(var->map))
 	{
+		var->game_state++;
+		var->win = WIN;
 		ft_printf("congrats You won !\ngame closing\n");
-		destroy_images(var->env, 1);
-		free2d(var->map);
-		exit(0);
+		// destroy_images(var->env, 1);
+		// free2d(var->map);
+		// exit(0);
 	}
 	else if (var->map[var->p_pos->y - 1][var->p_pos->x] != '1')
 	{
@@ -210,10 +213,9 @@ void	handle_left_move(t_var *var, int *move)
 		&& var->map[var->p_pos->y][var->p_pos->x - 1] == 'E'
 		&& !check_collect(var->map))
 	{
+		var->game_state++;
+		var->win = WIN;
 		ft_printf("congrats You won !\ngame closing\n");
-		destroy_images(var->env, 1);
-		free2d(var->map);
-		exit(0);
 	}
 	else if (var->map[var->p_pos->y][var->p_pos->x - 1] != '1')
 	{
@@ -246,10 +248,16 @@ void	handle_left_move(t_var *var, int *move)
 void	change_door(t_var *var)
 {
 	t_point	pos;
+	static int  n;
 
-	pos = item_postion(var->map, 'E');
-	mlx_put_image_to_window(var->env->mlx, var->env->win,
-		var->env->img.opened_door, pos.x * 32, pos.y * 32);
+	var->env->img.door = var->env->img.opened_door;
+	if (n == 0)
+	{
+		pos = item_postion(var->map, 'E');
+		mlx_put_image_to_window(var->env->mlx, var->env->win,
+			var->env->img.opened_door, pos.x * 32, pos.y * 32);
+		n++;
+	}
 	if (check_winner(var->map) == 1)
 	{
 		ft_printf("congrats You win !\ngame closing\n");
@@ -271,10 +279,8 @@ int	movment_handler(int keycode, t_var *var)
 		{
 			destroy_images(var->env, check_winner(var->map));
 			exit (0);
-			// mlx_destroy_image(var->env->mlx, var->env->win)
 		}
 		return 0;
-			// ft_printf("enter\n");
 	}
 	if (keycode == 1 || keycode == 125)
 		handel_down_move(var, &move);
@@ -285,9 +291,11 @@ int	movment_handler(int keycode, t_var *var)
 	else if (keycode == 0 || keycode == 123)
 		handle_left_move(var, &move);
 	else if (keycode == 53)
+	{
 		var->game_state++;
-		// closing_game(var);
-	if (!check_collect(var->map))
+		var->win = LOSE;
+	}
+		if (!check_collect(var->map))
 		change_door(var);
 	str_move = ft_itoa(move);
 	str = ft_strjoin("moves : ", str_move);

@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/26 21:45:39 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/27 17:26:04 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,34 @@ int closing_game(t_var *var)
 {
 	int width;
 	int height;
-	void *game_over = mlx_xpm_file_to_image(var->env->mlx, "assetes/game_over/game_over_white.xpm", &width, &height);
-	if (game_over == NULL)
+	void *img;
+	img = NULL;
+	int x, y;
+	x = (get_map_width(var->map) * 32) / 2;
+	y = (get_map_height(var->map) * 32) / 2;
+	if (var->win == WIN)
+	{
+		if (get_map_width(var->map) > 30)
+		{
+			y = y - (1839 / 2);
+			x = x - (1300 / 2);
+			img =  mlx_xpm_file_to_image(var->env->mlx, "assetes/win/resized_win.xpm", &width, &height);
+		}
+		else if (get_map_width(var->map) < 17)
+		{
+			y = y - (355 / 2);
+			x = x - (566 / 2);
+			img =  mlx_xpm_file_to_image(var->env->mlx, "assetes/win/you_win.xpm", &width, &height);
+		}
+	}
+	else if (var->win == LOSE)
+	{
+		ft_printf("lost");
+	y = y - (355 / 2);
+	x = x - (566 / 2);
+		img = mlx_xpm_file_to_image(var->env->mlx, "assetes/game_over/game_over_white.xpm", &width, &height);
+	}
+	if (img == NULL)
     {
         ft_printf("Failed to load game over image\n");
         exit(1);
@@ -105,12 +131,8 @@ int closing_game(t_var *var)
 	if (get_map_height(var->map) >= 5 && get_map_width(var->map) > 18)
 	{
 		
-	int x = (get_map_width(var->map) * 32) / 2;
-	int y = (get_map_height(var->map) * 32) / 2;
-	y = y - (355 / 2);
-	x = x - (566 / 2);
 	mlx_clear_window(var->env->mlx, var->env->win);
-	mlx_put_image_to_window(var->env->mlx, var->env->win, game_over, x, y);
+	mlx_put_image_to_window(var->env->mlx, var->env->win, img, x, y);
 	mlx_loop(var->env->mlx);
 	}
 	ft_printf("You lost ! hehe\n");
@@ -260,20 +282,30 @@ void	handle_enemy(t_coins_var *variable)
 			mlx_put_image_to_window(variable->var->env->mlx,
 				variable->var->env->win, variable->var->env->img.floor,
 				variable->enemies->e_pos.x * 32, variable->enemies->e_pos.y * 32);
-			variable->var->map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] = '0';
+			if (variable->var->map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] == 'E')
+			{
+				mlx_put_image_to_window(variable->var->env->mlx,
+				variable->var->env->win, variable->var->env->img.door,
+				variable->enemies->e_pos.x * 32, variable->enemies->e_pos.y * 32);
+			}
+			if (variable->var->map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] != 'E')
+				variable->var->map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] = '0';
 			variable->enemies->e_pos.x = pos.x;
 			variable->enemies->e_pos.y = pos.y;
 			mlx_put_image_to_window(variable->var->env->mlx,
 				variable->var->env->win, variable->enemies->img,
 				variable->enemies->e_pos.x * 32, variable->enemies->e_pos.y * 32);
-			variable->var->map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] = 'X';
+			if (variable->var->map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] != 'E')
+				variable->var->map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] = 'X';
 			variable->enemies->e_pos = pos;		
 		}
 		variable->enemies->e_pos.x = pos.x;
 		variable->enemies->e_pos.y = pos.y;
 		if (pos.x == variable->var->p_pos->x && pos.y == variable->var->p_pos->y)
+		{
 			variable->var->game_state++;
-			// closing_game(variable->var);
+			variable->var->win = LOSE;
+		}
 		variable->enemies = variable->enemies->next;
 	}
 	variable->enemies = tmp;
@@ -391,6 +423,7 @@ int	set_up_map(char **map)
 		exit(1);
 	}
 	var.env = &env;
+	var.win = LOSE;
 	variable.var = &var;
 	variable.coins = NULL;
 	variable.enemies = NULL;

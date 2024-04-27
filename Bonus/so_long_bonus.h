@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/26 18:45:28 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/27 14:43:35 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,19 @@ enum
 	GAME_IN = 1,
 	GAME_END = 2,
 };
+
+enum
+{
+	LOSE = 0,
+	WIN = 1,
+};
 typedef struct s_var
 {
 	char				**map;
 	t_env				*env;
 	t_point				*p_pos;
 	int					game_state;
+	int					win;
 }						t_var;
 
 typedef struct s_enemies
