@@ -1,6 +1,7 @@
 SRCS = main_bonus.c parsing_bonus.c flood_fill_bonus.c render_map_bonus.c \
 parse_utils_bonus.c handle_moves_bonus.c check_errs_bonus.c so_long_utils_bonus.c counter_bonus.c \
-enemy_bonus.c check_extens_bonus.c enemies_utils_bonus.c coins_bonus.c coins_utils_bonus.c open_utils_bonus.c start_end_bonus.c
+enemy_bonus.c check_extens_bonus.c enemies_utils_bonus.c coins_bonus.c coins_utils_bonus.c open_utils_bonus.c start_end_bonus.c \
+move_utils_bonus.c
 OBJBS = $(SRCS:.c=.o)
 NAME = ../so_long_bonus
 CC = cc

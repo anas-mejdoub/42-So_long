@@ -6,69 +6,12 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/29 12:28:00 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:24:08 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	handel_down_move(t_var *var, int *move)
-{
-	if (var->map[var->p_pos->y + 1][var->p_pos->x] == 'X')
-		var->game_state++;
-	if (var->map[var->p_pos->y + 1][var->p_pos->x] != '1'
-		&& ((var->map[var->p_pos->y][var->p_pos->x] == 'E'
-				&& check_collect(var->map))))
-	{
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.door, var->p_pos->x * 32, var->p_pos->y * 32);
-		var->p_pos->y = var->p_pos->y + 1;
-		var->map[var->p_pos->y][var->p_pos->x] = '0';
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.player_d, var->p_pos->x * 32, var->p_pos->y * 32);
-		(*move)++;
-	}
-	else if (var->map[var->p_pos->y + 1][var->p_pos->x] != '1'
-		&& var->map[var->p_pos->y + 1][var->p_pos->x] == 'E'
-		&& !check_collect(var->map))
-	{
-		var->game_state++;
-		var->win = WIN;
-		ft_printf("congrats You win !\ngame closing\n");
-	}
-	else if (var->map[var->p_pos->y + 1][var->p_pos->x] != '1')
-	{
-		var->map[var->p_pos->y][var->p_pos->x] = '0';
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.floor, var->p_pos->x * 32, (var->p_pos->y) * 32);
-		var->p_pos->y = var->p_pos->y + 1;
-		if (var->map[var->p_pos->y][var->p_pos->x] != 'E')
-		{
-			mlx_put_image_to_window(var->env->mlx, var->env->win,
-				var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
-			var->map[var->p_pos->y][var->p_pos->x] = '0';
-		}
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.player_d, var->p_pos->x * 32, var->p_pos->y * 32);
-		(*move)++;
-	}
-	else
-	{
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
-		if (var->map[var->p_pos->y][var->p_pos->x] == 'E')
-			mlx_put_image_to_window(var->env->mlx, var->env->win,
-				var->env->img.door, var->p_pos->x * 32, var->p_pos->y * 32);
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.player_d, var->p_pos->x * 32, var->p_pos->y * 32);
-	}
-}
-
-// right move !!!!!!!!!!!
 void	handle_right_move(t_var *var, int *move)
 {
 	if (var->map[var->p_pos->y][var->p_pos->x + 1] == 'X')
@@ -76,48 +19,15 @@ void	handle_right_move(t_var *var, int *move)
 	if (var->map[var->p_pos->y][var->p_pos->x + 1] != '1'
 		&& ((var->map[var->p_pos->y][var->p_pos->x] == 'E'
 				&& check_collect(var->map))))
-	{
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.door, var->p_pos->x * 32, var->p_pos->y * 32);
-		var->p_pos->x = var->p_pos->x + 1;
-		var->map[var->p_pos->y][var->p_pos->x] = '0';
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.sprint_right, var->p_pos->x * 32, var->p_pos->y * 32);
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.player_r, var->p_pos->x * 32, var->p_pos->y * 32);
-		(*move)++;
-	}
+		handle_door(var, move, (t_point){var->p_pos->y, var->p_pos->x + 1},
+			var->env->img.sprint_right);
 	else if (var->map[var->p_pos->y][var->p_pos->x + 1] != '1'
 		&& var->map[var->p_pos->y][var->p_pos->x + 1] == 'E'
 		&& !check_collect(var->map))
-	{
-		var->game_state++;
-		var->win = WIN;
-		ft_printf("congrats You won !\ngame closing\n");
-		// destroy_images(var->env, 1);
-		// free2d(var->map);
-		// exit(0);
-	}
+		handle_win(var);
 	else if (var->map[var->p_pos->y][var->p_pos->x + 1] != '1')
-	{
-		var->map[var->p_pos->y][var->p_pos->x] = '0';
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.floor, var->p_pos->x * 32, (var->p_pos->y) * 32);
-		var->p_pos->x = var->p_pos->x + 1;
-		if (var->map[var->p_pos->y][var->p_pos->x] != 'E')
-		{
-			mlx_put_image_to_window(var->env->mlx, var->env->win,
-				var->env->img.floor, var->p_pos->x * 32, (var->p_pos->y) * 32);
-			var->map[var->p_pos->y][var->p_pos->x] = '0';
-		}
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.sprint_right, var->p_pos->x * 32, var->p_pos->y * 32);
-		(*move)++;
-	}
+		handle_free_move(var, move, (t_point){var->p_pos->y, var->p_pos->x + 1},
+			var->env->img.sprint_right);
 	else
 	{
 		mlx_put_image_to_window(var->env->mlx, var->env->win,
@@ -127,65 +37,6 @@ void	handle_right_move(t_var *var, int *move)
 				var->env->img.door, var->p_pos->x * 32, var->p_pos->y * 32);
 		mlx_put_image_to_window(var->env->mlx, var->env->win,
 			var->env->img.player_r, var->p_pos->x * 32, var->p_pos->y * 32);
-	}
-}
-
-void	handle_up_move(t_var *var, int *move)
-{
-	if (var->map[var->p_pos->y - 1][var->p_pos->x] == 'X')
-		var->game_state++;
-	if (var->map[var->p_pos->y - 1][var->p_pos->x] != '1'
-		&& ((var->map[var->p_pos->y][var->p_pos->x] == 'E'
-				&& check_collect(var->map))))
-	{
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.door, var->p_pos->x * 32, var->p_pos->y * 32);
-		var->p_pos->y = var->p_pos->y - 1;
-		var->map[var->p_pos->y][var->p_pos->x] = '0';
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.player_u, var->p_pos->x * 32, var->p_pos->y * 32);
-		(*move)++;
-	}
-	else if (var->map[var->p_pos->y - 1][var->p_pos->x] != '1'
-		&& var->map[var->p_pos->y - 1][var->p_pos->x] == 'E'
-		&& !check_collect(var->map))
-	{
-		var->game_state++;
-		var->win = WIN;
-		ft_printf("congrats You won !\ngame closing\n");
-		// destroy_images(var->env, 1);
-		// free2d(var->map);
-		// exit(0);
-	}
-	else if (var->map[var->p_pos->y - 1][var->p_pos->x] != '1')
-	{
-		var->map[var->p_pos->y][var->p_pos->x] = '0';
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.floor, var->p_pos->x * 32, (var->p_pos->y) * 32);
-		var->p_pos->y = var->p_pos->y - 1;
-		if (var->map[var->p_pos->y][var->p_pos->x] != 'E')
-		{
-			mlx_put_image_to_window(var->env->mlx, var->env->win,
-				var->env->img.floor, var->p_pos->x * 32, (var->p_pos->y) * 32);
-			var->map[var->p_pos->y][var->p_pos->x] = '0';
-		}
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.player_u, var->p_pos->x * 32, (var->p_pos->y) * 32);
-		(*move)++;
-	}
-	else
-	{
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
-		if (var->map[var->p_pos->y][var->p_pos->x] == 'E')
-			mlx_put_image_to_window(var->env->mlx, var->env->win,
-				var->env->img.door, var->p_pos->x * 32, var->p_pos->y * 32);
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.player_u, var->p_pos->x * 32, var->p_pos->y * 32);
 	}
 }
 
@@ -196,43 +47,15 @@ void	handle_left_move(t_var *var, int *move)
 	else if (var->map[var->p_pos->y][var->p_pos->x - 1] != '1'
 		&& ((var->map[var->p_pos->y][var->p_pos->x] == 'E'
 				&& check_collect(var->map))))
-	{
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.door, var->p_pos->x * 32, var->p_pos->y * 32);
-		var->p_pos->x = var->p_pos->x - 1;
-		var->map[var->p_pos->y][var->p_pos->x] = '0';
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.floor, var->p_pos->x * 32, var->p_pos->y * 32);
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.player_l, var->p_pos->x * 32, var->p_pos->y * 32);
-		(*move)++;
-	}
+		handle_door(var, move, (t_point){var->p_pos->y, var->p_pos->x - 1},
+			var->env->img.sprint_left);
 	else if (var->map[var->p_pos->y][var->p_pos->x - 1] != '1'
 		&& var->map[var->p_pos->y][var->p_pos->x - 1] == 'E'
 		&& !check_collect(var->map))
-	{
-		var->game_state++;
-		var->win = WIN;
-		ft_printf("congrats You won !\ngame closing\n");
-	}
+		handle_win(var);
 	else if (var->map[var->p_pos->y][var->p_pos->x - 1] != '1')
-	{
-		var->map[var->p_pos->y][var->p_pos->x] = '0';
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.floor, var->p_pos->x * 32, (var->p_pos->y) * 32);
-		var->p_pos->x = var->p_pos->x - 1;
-		if (var->map[var->p_pos->y][var->p_pos->x] != 'E')
-		{
-			mlx_put_image_to_window(var->env->mlx, var->env->win,
-				var->env->img.floor, var->p_pos->x * 32, (var->p_pos->y) * 32);
-			var->map[var->p_pos->y][var->p_pos->x] = '0';
-		}
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.sprint_left, var->p_pos->x * 32, var->p_pos->y * 32);
-		(*move)++;
-	}
+		handle_free_move(var, move, (t_point){var->p_pos->y, var->p_pos->x - 1},
+			var->env->img.sprint_left);
 	else
 	{
 		mlx_put_image_to_window(var->env->mlx, var->env->win,
@@ -245,42 +68,48 @@ void	handle_left_move(t_var *var, int *move)
 	}
 }
 
-void	change_door(t_var *var)
+void	movment_handler_helper(int keycode, t_var *var, int *move)
 {
-	t_point	pos;
-	static int  n;
+	if (keycode == 1 || keycode == 125)
+		up_down_move(var, move, (t_point){var->p_pos->y + 1, var->p_pos->x},
+			var->env->img.player_d);
+	else if (keycode == 2 || keycode == 124)
+		handle_right_move(var, move);
+	else if (keycode == 13 || keycode == 126)
+		up_down_move(var, move, (t_point){var->p_pos->y - 1, var->p_pos->x},
+			var->env->img.player_u);
+	else if (keycode == 0 || keycode == 123)
+		handle_left_move(var, move);
+	else if (keycode == 53)
+		red_cross(var);
+	if (!check_collect(var->map))
+		change_door(var);
+}
 
-	var->env->img.door = var->env->img.opened_door;
-	if (n == 0)
-	{
-		pos = item_postion(var->map, 'E');
-		mlx_put_image_to_window(var->env->mlx, var->env->win,
-			var->env->img.opened_door, pos.x * 32, pos.y * 32);
-		n++;
-	}
-	if (check_winner(var->map) == 1)
-	{
-		ft_printf("congrats You win !\ngame closing\n");
-		destroy_images(var->env, 1);
-		free2d(var->map);
-		exit(0);
-	}
+void	str_handler(t_var *var, char *move)
+{
+	char	*str;
+
+	str = ft_strjoin("moves : ", move);
+	build_counter_z(var);
+	mlx_string_put(var->env->mlx, var->env->win, 0, get_map_height(var->map)
+		* 32, 0xf58d42, str);
+	free(move);
+	free(str);
 }
 
 int	movment_handler(int keycode, t_var *var)
 {
 	static int	move;
-	char		*str_move;
-	char		*str;
-	
+
 	if (var->game_state == GAME_END)
 	{
 		if (keycode == 14)
 		{
 			destroy_images(var->env, check_winner(var->map));
-			exit (0);
+			exit(0);
 		}
-		return 0;
+		return (0);
 	}
 	if (var->game_state == GAME_START)
 	{
@@ -291,72 +120,7 @@ int	movment_handler(int keycode, t_var *var)
 		}
 		return (0);
 	}
-	if (keycode == 1 || keycode == 125)
-		handel_down_move(var, &move);
-	else if (keycode == 2 || keycode == 124)
-		handle_right_move(var, &move);
-	else if (keycode == 13 || keycode == 126)
-		handle_up_move(var, &move);
-	else if (keycode == 0 || keycode == 123)
-		handle_left_move(var, &move);
-	else if (keycode == 53)
-	{
-		// var->game_state++;
-		// var->win = LOSE;
-		red_cross(var);
-	}
-		if (!check_collect(var->map))
-		change_door(var);
-	str_move = ft_itoa(move);
-	str = ft_strjoin("moves : ", str_move);
-	build_counter_z(var);
-	mlx_string_put(var->env->mlx, var->env->win, 0, get_map_height(var->map)
-		* 32, 0xf58d42, str);
-	free(str_move);
-	free(str);
+	movment_handler_helper(keycode, var, &move);
+	str_handler(var, ft_itoa(move));
 	return (1);
 }
-
-
-/*
-
-	enum {
-		GAME_START = 0,
-		GAME_IN = 1,
-		GAME_END = 2,
-	}
-
-	int game_state = 0;
-	game_loop_hook
-	{
-		if (game_state == GAME_START)
-			render_game_menu();
-		else if (game_stat == GAME_IN)
-			render_game_stuff();
-			if (enemy touches me) 
-				game_state++;
-		else {
-			mlx_clear_window();
-			render_game_over();
-		}
-	}
-	
-	key_handler 
-	{
-		if (game_state == GAME_START)
-			if (key_pressed == "Enter")
-				game_state++;
-		else if (game_state == GAME_IN)
-			if (i touch enemy)
-				game_state++;
-		else {
-			if (key_pressed == "Enter")
-				destroy_everything();
-		}
-	}
-	
-	render_game_over() {
-		mlx_put_image_to_window(&img, SCREEN_H, SCREEN_W);
-	}
-
-*/

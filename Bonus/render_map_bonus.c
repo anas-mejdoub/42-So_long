@@ -6,13 +6,12 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:37:53 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/29 12:23:49 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:12:29 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-// int	render_map(char **map, t_env *env, void *player_dir, t_point *p_pos)
 int	render_map(t_coins_var *variable)
 {
 	intialcounter(variable->var);
@@ -24,8 +23,10 @@ int	render_map(t_coins_var *variable)
 		exit(0);
 	}
 	render_helper(*variable->var, 0, 0, (t_point){0, 0});
-	if (variable->var->map[variable->var->p_pos->y][variable->var->p_pos->x] == 'C')
-		variable->var->map[variable->var->p_pos->y][variable->var->p_pos->x] = '0';
+	if (variable->var->map[variable->var->p_pos->y][variable->var->p_pos->x]
+	== 'C')
+		variable->var->map[variable->var->p_pos->y][variable->var->p_pos->x]
+			= '0';
 	mlx_put_image_to_window(variable->var->env->mlx, variable->var->env->win,
 		variable->var->env->img.player_r, variable->var->p_pos->x * 32,
 		variable->var->p_pos->y * 32);

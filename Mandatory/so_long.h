@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/25 12:27:31 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:59:21 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int			get_map_height(char **map);
 int			get_map_width(char **map);
 void		remove_nl(char **map);
 int			check_wall_helper(int i, int j, int last, char **map);
-int check_extension(char *filename);
-void printf_err();
+int			check_extension(char *filename);
+void		printf_err(void);
 typedef struct s_point
 {
 	int		y;
@@ -83,6 +83,6 @@ int			open_images(t_env *env, int *width, int *height, char **map);
 t_point		item_postion(char **map, char c);
 int			check_winner(char **map);
 int			check_assets(t_env *env);
-int	closing_game(t_var *var);
-int	check_execp(char **map);
+int			closing_game(t_var *var);
+int			check_execp(char **map);
 #endif

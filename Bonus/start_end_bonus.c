@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:05:58 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/29 12:07:29 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:09:08 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,7 @@ void	game_start(t_var *var)
 	img = mlx_xpm_file_to_image(var->env->mlx, "assetes/menu/menu_2.xpm",
 			&width, &height);
 	if (img == NULL)
-	{
-		ft_printf("problem with menu image\n");
-		free2d(var->map);
-		destroy_images(var->env, check_winner(var->map));
-		exit(1);
-	}
+		red_cross(var);
 	if (get_map_height(var->map) >= 15 && get_map_width(var->map) > 33)
 	{
 		mlx_put_image_to_window(var->env->mlx, var->env->win, img, x, y);
@@ -83,34 +78,48 @@ void	game_start(t_var *var)
 	mlx_clear_window(var->env->mlx, var->env->win);
 }
 
-int	close_win(t_var *var)
+void	close_win_helper(t_var *var, int y, int x, char n)
 {
-	void	*img;
-	int		x;
-	int		y;
 	int		width;
 	int		height;
+	void	*img;
 
-	img = NULL;
-	x = (get_map_width(var->map) * 32) / 2;
-	y = (get_map_height(var->map) * 32) / 2;
-	if (get_map_height(var->map) >= 15 && get_map_width(var->map) > 33)
+	if (n == '1')
 	{
 		y = y - (682 / 2);
 		x = x - (1095 / 2);
 		img = mlx_xpm_file_to_image(var->env->mlx, "assetes/win/naruto_win.xpm",
 				&width, &height);
+		if (!img)
+			red_cross(var);
 		mlx_put_image_to_window(var->env->mlx, var->env->win, img, x, y);
 	}
-	else
+	else if (n == '2')
 	{
 		y = y - (218 / 2);
 		x = x - (415 / 2);
 		img = mlx_xpm_file_to_image(var->env->mlx, "assetes/win/you_win.xpm",
 				&width, &height);
+		if (!img)
+			red_cross(var);
 		mlx_put_image_to_window(var->env->mlx, var->env->win, img, x, y);
 	}
-	if (!img)
-		return (0);
+}
+
+int	close_win(t_var *var)
+{
+	int	x;
+	int	y;
+
+	x = (get_map_width(var->map) * 32) / 2;
+	y = (get_map_height(var->map) * 32) / 2;
+	if (get_map_height(var->map) >= 15 && get_map_width(var->map) > 33)
+	{
+		close_win_helper(var, y, x, '1');
+	}
+	else
+	{
+		close_win_helper(var, y, x, '2');
+	}
 	return (1);
 }

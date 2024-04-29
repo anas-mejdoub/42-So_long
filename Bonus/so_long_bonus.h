@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:56:57 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/29 12:09:29 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:07:21 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,14 @@ void					fill_enemies(t_coins_var *variable);
 void					enemies_img_intial(t_coins_var variable);
 void					enemy_caller(t_coins_var *variable);
 void					*ask_for_img(t_coins_var *variable);
-// void					render_enemy(t_coins_var *variable);
 int						red_cross(t_var *var);
 t_point					search_p(t_coins_var *variable, t_point enemy);
+void					handle_door(t_var *var, int *move, t_point new,
+							void *pimg);
+void					handle_win(t_var *var);
+void					handle_free_move(t_var *var, int *move, t_point new,
+							void *pimg);
+void					up_down_move(t_var *var, int *move, t_point new,
+							void *pimg);
+void					change_door(t_var *var);
 #endif
