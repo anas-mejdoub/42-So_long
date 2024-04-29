@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/29 12:09:11 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:55:17 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	red_cross(t_var *var)
 {
-	free2d(var->map);
 	destroy_images(var->env, check_winner(var->map));
+	free2d(var->map);
 	exit(0);
 }
 

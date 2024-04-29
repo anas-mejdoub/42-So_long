@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:48:41 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/29 12:10:16 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:16:57 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,13 @@ void	handle_enemy(t_coins_var *variable)
 
 void	handle_enemy_handler(t_coins_var *variable, t_point pos)
 {
+	char	**map;
+
+	map = variable->var->map;
 	mlx_put_image_to_window(variable->var->env->mlx, variable->var->env->win,
 		variable->var->env->img.floor, variable->enemies->e_pos.x * 32,
 		variable->enemies->e_pos.y * 32);
-	if (variable->var->map[variable->enemies->e_pos.y]
+	if (map[variable->enemies->e_pos.y]
 		[variable->enemies->e_pos.x]
 		== 'E')
 	{
@@ -79,15 +82,15 @@ void	handle_enemy_handler(t_coins_var *variable, t_point pos)
 			variable->var->env->win, variable->var->env->img.door,
 			variable->enemies->e_pos.x * 32, variable->enemies->e_pos.y * 32);
 	}
-	if (variable->var->map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] != 'E')
-		variable->var->map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] = '0';
+	if (map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] != 'E')
+		map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] = '0';
 	variable->enemies->e_pos.x = pos.x;
 	variable->enemies->e_pos.y = pos.y;
 	mlx_put_image_to_window(variable->var->env->mlx, variable->var->env->win,
 		variable->enemies->img, variable->enemies->e_pos.x * 32,
 		variable->enemies->e_pos.y * 32);
-	if (variable->var->map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] != 'E')
-		variable->var->map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] = 'X';
+	if (map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] != 'E')
+		map[variable->enemies->e_pos.y][variable->enemies->e_pos.x] = 'X';
 	variable->enemies->e_pos = pos;
 }
 

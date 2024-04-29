@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/28 16:46:05 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:28:00 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,8 +301,8 @@ int	movment_handler(int keycode, t_var *var)
 		handle_left_move(var, &move);
 	else if (keycode == 53)
 	{
-		var->game_state++;
-		var->win = LOSE;
+		// var->game_state++;
+		// var->win = LOSE;
 		red_cross(var);
 	}
 		if (!check_collect(var->map))
