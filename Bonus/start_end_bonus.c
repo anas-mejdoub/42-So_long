@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:05:58 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/29 15:09:08 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:36:41 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,15 @@ int	closing_game(t_var *var)
 	{
 		mlx_clear_window(var->env->mlx, var->env->win);
 		if (var->win == WIN)
+		{
 			close_win(var);
+			return (1);
+		}
 		else
+		{
 			close_lose(var);
-		mlx_loop(var->env->mlx);
+			return (1);
+		}
 	}
 	free2d(var->map);
 	exit(0);
