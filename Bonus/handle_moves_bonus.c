@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/27 22:50:22 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/28 16:46:05 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,7 @@ int	movment_handler(int keycode, t_var *var)
 	
 	if (var->game_state == GAME_END)
 	{
-		if (keycode == 36)
+		if (keycode == 14)
 		{
 			destroy_images(var->env, check_winner(var->map));
 			exit (0);
@@ -285,7 +285,10 @@ int	movment_handler(int keycode, t_var *var)
 	if (var->game_state == GAME_START)
 	{
 		if (keycode == 36)
+		{
+			mlx_clear_window(var->env->mlx, var->env->win);
 			var->game_state++;
+		}
 		return (0);
 	}
 	if (keycode == 1 || keycode == 125)
@@ -300,6 +303,7 @@ int	movment_handler(int keycode, t_var *var)
 	{
 		var->game_state++;
 		var->win = LOSE;
+		red_cross(var);
 	}
 		if (!check_collect(var->map))
 		change_door(var);

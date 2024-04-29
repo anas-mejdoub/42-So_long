@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:37:53 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/27 22:52:05 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/28 16:53:17 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	render_map(t_coins_var *variable)
 	render_helper(*variable->var, 0, 0, (t_point){0, 0});
 	if (variable->var->map[variable->var->p_pos->y][variable->var->p_pos->x] == 'C')
 		variable->var->map[variable->var->p_pos->y][variable->var->p_pos->x] = '0';
-	mlx_put_image_to_window(variable->var->env->mlx, variable->var->env->win, variable->var->env->img.player_r, variable->var->p_pos->x * 32,
+	mlx_put_image_to_window(variable->var->env->mlx, variable->var->env->win,
+		variable->var->env->img.player_r, variable->var->p_pos->x * 32,
 		variable->var->p_pos->y * 32);
 	return (1);
 }
@@ -43,7 +44,8 @@ void	render_helper(t_var var, int i, int y, t_point point)
 				build_outer_wall(var.map, (t_point){i, y}, (t_point){point.y,
 					point.x}, var.env);
 			if (var.map[i][y] == '0' || var.map[i][y] == 'P'
-				|| var.map[i][y] == 'E' || var.map[i][y] == 'X' || var.map[i][y] == 'C')
+				|| var.map[i][y] == 'E' || var.map[i][y] == 'X'
+				|| var.map[i][y] == 'C')
 				mlx_put_image_to_window(var.env->mlx, var.env->win,
 					var.env->img.floor, point.x, point.y);
 			if (var.map[i][y] == 'E')
