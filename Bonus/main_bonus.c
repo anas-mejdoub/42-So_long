@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/30 14:44:30 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:11:05 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	set_up_map(char **map)
 	img_value(variable);
 	enemies_img_intial(variable);
 	mlx_loop_hook(env.mlx, render_coins, &variable);
-	mlx_hook(env.win, 17, 0, red_cross, &var);
+	mlx_hook(env.win, 17, 10, red_cross, &var);
 	mlx_loop(env.mlx);
 	return (0);
 }

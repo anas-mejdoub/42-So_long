@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:05:58 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/30 11:51:44 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:18:31 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	close_lose(t_var *var)
 		mlx_put_image_to_window(var->env->mlx, var->env->win, img, x, y);
 	}
 	if (!img)
-		return (0);
+		red_cross(var);
 	return (1);
 }
 
@@ -72,7 +72,7 @@ void	game_start(t_var *var)
 			&width, &height);
 	if (img == NULL)
 		red_cross(var);
-	if (get_map_height(var->map) >= 15 && get_map_width(var->map) > 33)
+	if (get_map_height(var->map) >= 20 && get_map_width(var->map) > 33)
 	{
 		mlx_put_image_to_window(var->env->mlx, var->env->win, img, x, y);
 		return ;
