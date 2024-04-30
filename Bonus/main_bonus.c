@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/30 14:09:02 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:44:30 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,5 @@ int	main(int argc, char *argv[])
 		exit(0);
 	}
 	set_up_map(map);
-	free2d(map);
 	return (0);
 }
