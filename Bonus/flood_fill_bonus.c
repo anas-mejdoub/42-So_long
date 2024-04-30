@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 16:14:13 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/18 22:10:17 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/30 11:56:49 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	is_filled(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] != '1' && map[i][j] != '0')
+			if (!ft_strchr("10X", map[i][j]))
 				return (0);
 			j++;
 		}

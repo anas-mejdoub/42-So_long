@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 18:34:36 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/29 16:24:08 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:05:43 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,7 @@ int	movment_handler(int keycode, t_var *var)
 	{
 		if (keycode == 14)
 		{
-			destroy_images(var->env, check_winner(var->map));
-			exit(0);
+			red_cross(var);
 		}
 		return (0);
 	}
@@ -118,6 +117,8 @@ int	movment_handler(int keycode, t_var *var)
 			mlx_clear_window(var->env->mlx, var->env->win);
 			var->game_state++;
 		}
+		else if (keycode == 53)
+			red_cross(var);
 		return (0);
 	}
 	movment_handler_helper(keycode, var, &move);

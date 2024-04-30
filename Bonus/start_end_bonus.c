@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:05:58 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/29 17:36:41 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/30 11:51:44 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ int	closing_game(t_var *var)
 			return (1);
 		}
 	}
-	free2d(var->map);
-	exit(0);
+	return (red_cross(var));
 }
 
 void	game_start(t_var *var)

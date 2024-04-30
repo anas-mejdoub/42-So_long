@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/29 16:24:37 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/30 11:51:53 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	red_cross(t_var *var)
 {
 	destroy_images(var->env, check_winner(var->map));
 	free2d(var->map);
+	if (var->win == LOSE)
+		ft_printf("you lost\ngame closing\n");
 	exit(0);
 }
 
@@ -56,7 +58,8 @@ void	check_leaks(void)
 int	main(int argc, char *argv[])
 {
 	char	**map;
-
+	
+	// atexit(check_leaks);
 	if (argc == 1)
 		return (0);
 	map = map_parsing(argv[1]);
