@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/30 12:21:23 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:09:02 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,10 @@ int	set_up_map(char **map)
 	return (0);
 }
 
-void	check_leaks(void)
-{
-	system("leaks so_long_bonus");
-}
-
 int	main(int argc, char *argv[])
 {
 	char	**map;
 
-	// atexit(check_leaks);
 	if (argc == 1)
 		return (0);
 	map = map_parsing(argv[1]);

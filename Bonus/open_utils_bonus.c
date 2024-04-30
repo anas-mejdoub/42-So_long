@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:02:17 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/30 12:42:57 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:33:56 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	destroy_images(t_env *env, int n)
 	mlx_destroy_image(env->mlx, env->img.player_u);
 	mlx_destroy_image(env->mlx, env->img.player_d);
 	mlx_destroy_image(env->mlx, env->img.player_l);
+	mlx_destroy_image(env->mlx, env->img.sprint_left);
+	mlx_destroy_image(env->mlx, env->img.sprint_right);
 	mlx_destroy_window(env->mlx, env->win);
 	if (n == 0)
 		mlx_destroy_image(env->mlx, env->img.door);
