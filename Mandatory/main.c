@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/30 10:54:20 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:17:03 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	open_images(t_env *env, int *width, int *height, char **map)
 			width, height);
 	env->img.door = mlx_xpm_file_to_image(env->mlx, "assetes/idle.xpm", width,
 			height);
-	env->img.coin = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin1.xpm", width,
-			height);
+	env->img.coin = mlx_xpm_file_to_image(env->mlx, "assetes/coins/coin1.xpm",
+			width, height);
 	env->img.player_r = mlx_xpm_file_to_image(env->mlx,
 			"assetes/player/naruto_right.xpm", width, height);
 	env->img.player_d = mlx_xpm_file_to_image(env->mlx,

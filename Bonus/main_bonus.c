@@ -6,7 +6,7 @@
 /*   By: amejdoub <amejdoub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:51:07 by amejdoub          #+#    #+#             */
-/*   Updated: 2024/04/30 11:51:53 by amejdoub         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:21:23 by amejdoub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	check_leaks(void)
 int	main(int argc, char *argv[])
 {
 	char	**map;
-	
+
 	// atexit(check_leaks);
 	if (argc == 1)
 		return (0);
